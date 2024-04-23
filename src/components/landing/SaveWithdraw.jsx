@@ -12,9 +12,9 @@ function SaveWithdraw() {
   return (
     <div className="mt-48">
       <div className="flex flex-col items-center">
-        <p className="font-medium text-xl text-[#FF8811]">Send and receive</p>
+        <p className="font-medium text-xl text-[#FF8811]">save and earn</p>
         <p className="text-5xl text-center">
-          Easily send and receive
+          Easily save and earn
           <br /> cryptocurrency
         </p>
       </div>
