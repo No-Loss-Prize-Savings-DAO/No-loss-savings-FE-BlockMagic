@@ -13,7 +13,7 @@ export const NavBar = () => {
     <>
       <div className="fixed top-0 z-50 w-full   bg-opacity-30 backdrop-blur-lg backdrop-filter">
         <div className="mx-auto w-full px-4 sm:w-11/12 md:w-10/12">
-          <div className="flex h-24 items-center justify-between">
+          <div className="flex h-20 items-center justify-between">
             <Link
               href="/"
               className={`text-3xl font-semibold text-gray-100 lg:text-5xl ${gluten.className}`}
