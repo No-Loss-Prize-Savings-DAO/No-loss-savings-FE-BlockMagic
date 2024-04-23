@@ -1,8 +1,10 @@
 import { Button } from "@/components/dao/ui/button"
 import { SearchBar } from "@/components/dao/search-bar"
 import { ProposalCard } from "@/components/dao/proposal-card"
+import NewProposalDialog from "./NewProposalDialog";
 
 export default function DaoPage() {
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -23,8 +25,8 @@ export default function DaoPage() {
         </div>
 
         <div className="flex gap-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-between">
-          <SearchBar/>
-          <Button variant="outline" className="rounded-full">Create new proposal</Button>
+          <SearchBar />
+          <NewProposalDialog />
         </div>
 
 {/* Proposal list */}
