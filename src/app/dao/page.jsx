@@ -1,6 +1,11 @@
-import { Button } from "@/components/dao/ui/button"
+"use client";
+
+import React, { useState } from "react";
+import DashboardTabNavigation from "../../components/shared/dashboard-nav";
+import { NavBar } from "../../components/shared/nav-bar";
 import { SearchBar } from "@/components/dao/search-bar"
 import { ProposalCard } from "@/components/dao/proposal-card"
+import NewProposalDialog from "./NewProposalDialog";
 
 export default function DaoPage() {
   const [tab, setTab] = useState(0);
