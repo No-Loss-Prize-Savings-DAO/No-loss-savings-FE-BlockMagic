@@ -28,7 +28,7 @@ export default function DaoPage() {
 
       <div className="min-h-screen ">
         {/* Body */}
-        <main className="max-w-5xl mx-auto py-6 ">
+        <main className="max-w-5xl mx-auto py-20 ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold mb-4">Proposals</h2>
           </div>
@@ -48,6 +48,11 @@ export default function DaoPage() {
                 title="Increase the minimum deposit amount"
                 description="Summary: This No Loss Savings Raffle Project should increase the minimum deposit amount so as to accomodate only whales with big money, small users don't matter."
                 onClick=""
+                yesVotes={200}
+                noVotes={10}
+                abstainVotes={10}
+                endDate={"2024-05-01"} // Sample end date, format: "YYYY-MM-DD"
+            
               />
 
               <ProposalCard
@@ -57,6 +62,9 @@ export default function DaoPage() {
                 title="Incentive Program for Referrals"
                 description="Introducing a referral incentive program to incentivize existing participants to refer new users to our platform. Participants who successfully refer new users will receive rewards, fostering community growth and engagement in our no-loss saving prize raffle project."
                 onClick=""
+                yesVotes={100}
+                noVotes={30}
+                abstainVotes={10}
               />
 
               <ProposalCard
@@ -66,6 +74,9 @@ export default function DaoPage() {
                 title="Enhanced User Experience"
                 description="This proposal aims to enhance the user experience of our platform by implementing user-friendly interfaces, streamlined registration processes, and intuitive navigation. Improving user experience will encourage more participants to join our no-loss saving prize raffle project."
                 onClick=""
+                yesVotes={100}
+                noVotes={50}
+                abstainVotes={20}
               />
 
               <ProposalCard
@@ -75,6 +86,9 @@ export default function DaoPage() {
                 title="Integration with External Platforms"
                 description="Exploring opportunities to integrate our platform with external financial services and platforms to provide additional benefits and functionality to participants. Integration with popular financial apps and services will enhance the utility of our no-loss saving prize raffle project."
                 onClick=""
+                yesVotes={50}
+                noVotes={20}
+                abstainVotes={10}
               />
 
               <ProposalCard
@@ -84,6 +98,9 @@ export default function DaoPage() {
                 title="Expansion to New Markets"
                 description="Proposing the expansion of our project to new geographical markets to reach a wider audience and increase participation. Targeting new markets will diversify our participant base and drive growth in our no-loss saving prize raffle project."
                 onClick=""
+                yesVotes={70}
+                noVotes={5}
+                abstainVotes={5}
               />
 
               <ProposalCard
@@ -93,6 +110,9 @@ export default function DaoPage() {
                 title="Governance Framework Enhancement"
                 description="Background: Enhancing the governance framework of our DAO to improve decision-making processes, transparency, and accountability. A robust governance framework will ensure the effective management and evolution of our no-loss saving prize raffle project."
                 onClick=""
+                yesVotes={200}
+                noVotes={10}
+                abstainVotes={10}
               />
 
               <ProposalCard
@@ -102,6 +122,11 @@ export default function DaoPage() {
                 title="Smart Contract Audit and Security"
                 description="Establishing a research and development fund to support the exploration of innovative features, technologies, and methodologies for our platform. Investing in research and development will drive continuous improvement and innovation in our no-loss saving prize raffle project."
                 onClick=""
+                yesVotes={200}
+                noVotes={10}
+                abstainVotes={10}
+                endDate={"2024-04-01"} // Sample end date, format: "YYYY-MM-DD"
+                
               />
             </div>
           </div>
