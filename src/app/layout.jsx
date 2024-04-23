@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`dark ${inter.className}`}>
         <Web3Modal>
-          <body>{children}</body>
+          {children}
         </Web3Modal>
       </body>
     </html>

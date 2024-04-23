@@ -14,8 +14,8 @@ const OP_mainnet = {
 };
 
 const OP_sepolia = {
-  chainId: SHARDEUM_ID,
-  name: "Optimism",
+  chainId: OPTIMISM_SEPOLIA_ID,
+  name: "Optimism Sepolia",
   currency: "ETH",
   explorerUrl: "https://sepolia-optimistic.etherscan.io",
   rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL,
