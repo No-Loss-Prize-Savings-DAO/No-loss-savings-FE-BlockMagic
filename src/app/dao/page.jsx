@@ -116,6 +116,7 @@ export default function DaoPage() {
               />
 
               <ProposalCard
+              id={1}
                 iconUrl="https://cdn.stamp.fyi/avatar/eth:0x28dF6625EF078Dc816423AE27830733Ee0aDd3da?s=40"
                 name="victor.eth"
                 status="Closed"

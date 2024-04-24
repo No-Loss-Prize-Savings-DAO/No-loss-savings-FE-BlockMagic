@@ -1,7 +1,9 @@
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/router";
 
 export default function ProposalCard({
+  id,
   name,
   status,
   title,
@@ -49,10 +51,16 @@ export default function ProposalCard({
     }
   }
 
+    // Function to handle card click and navigate to proposal details page
+    const handleCardClick = () => {
+      // Navigate to proposal details page with the proposal id
+      router.push(`/dao/proposal/${id}`);
+    };
+
   return (
     <div
       className="border border-slate-800  rounded-lg p-4 cursor-pointer hover:shadow-md"
-      onClick={onClick}
+      onClick={handleCardClick}
     >
       <div className="flex justify-between items-center">
         <div className="flex">
