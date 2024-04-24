@@ -8,12 +8,12 @@ const HeroSection = () => {
     <section className="container mt-0 sm:mt-6">
       <div className="mx-auto grid max-w-screen-2xl px-4 pt-20 lg:grid-cols-12 lg:gap-8  lg:pt-28 xl:gap-0">
         <div className="mr-auto place-self-center  lg:col-span-7">
-          <h1 className="mb-4 max-w-3xl text-4xl font-light leading-none tracking-tight text-white lg:text-5xl xl:text-6xl">
+          <h1 className="mb-4 max-w-3xl text-4xl leading-none tracking-tight text-white lg:text-5xl xl:text-6xl">
             Fast & secure crypto savings
             <br />
           </h1>
 
-          <p className="md:text-xllg:mb-8 mb-6 max-w-2xl font-mono font-light text-gray-500 lg:text-2xl">
+          <p className="md:text-xllg:mb-8 mb-6 max-w-2xl text-gray-300 lg:text-2xl">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry&apos;s standard dummy
             text
@@ -31,10 +31,10 @@ const HeroSection = () => {
             height={500}
             className="w-[400px]"
           />
-          <div className="flex justify-center gap-3 w-[400px] mt-4">
+          <div className="flex justify-center gap-3 w-[400px] mt-4 font-semibold">
             <span className="py-2 px-3 rounded-3xl border bg-[#0267FF] text-white text-sm w-fit">Save</span>
-            <span className="py-2 px-3 rounded-3xl border bg-[#FF8811] text-white text-sm w-fit">Save</span>
-            <span className="py-2 px-3 rounded-3xl border bg-[#11A3FF] text-white text-sm w-fit">Save</span>
+            <span className="py-2 px-3 rounded-3xl border bg-[#FF8811] text-white text-sm w-fit">Invest</span>
+            <span className="py-2 px-3 rounded-3xl border bg-[#11A3FF] text-white text-sm w-fit">Earn</span>
             <span className="py-2 px-3 rounded-3xl border bg-[#9111FF] text-white text-sm w-fit">Save</span>
           </div>
         </div>
