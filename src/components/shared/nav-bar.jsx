@@ -8,7 +8,6 @@ import ConnectButton from "@/hooks/useConnectButton";
 export const gluten = Gluten({ subsets: ["latin"] });
 
 export const NavBar = () => {
-  
   return (
     <>
       <div className="fixed top-0 z-50 w-full   bg-opacity-30 backdrop-blur-lg backdrop-filter">
@@ -20,7 +19,20 @@ export const NavBar = () => {
             >
               C
             </Link>
-            <ConnectButton />      
+            <div className="flex justify-center gap-8">
+              <Link href="/dao" className=" font-medium text-lg">
+                Dao
+              </Link>
+              <Link href="/dao" className=" font-medium text-lg">
+                About
+              </Link>
+              <Link href="/dao" className=" font-medium text-lg">
+                Join
+              </Link>
+            </div>
+            <div>
+              <ConnectButton />
+            </div>
           </div>
         </div>
       </div>
