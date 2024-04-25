@@ -19,7 +19,7 @@ export const NavBar = () => {
             >
               C
             </Link>
-            <div className="flex justify-center gap-8">
+            <div className="flex items-center gap-16">
               <Link href="/dao" className=" font-medium text-lg">
                 Dao
               </Link>
@@ -29,8 +29,7 @@ export const NavBar = () => {
               <Link href="/dao" className=" font-medium text-lg">
                 Join
               </Link>
-            </div>
-            <div>
+
               <ConnectButton />
             </div>
           </div>
