@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function ProposalCard({
   id,
@@ -8,13 +8,20 @@ export default function ProposalCard({
   status,
   title,
   description,
-  onClick,
   iconUrl,
   yesVotes,
   noVotes,
   abstainVotes,
   endDate,
 }) {
+  const router = useRouter();
+
+   // Function to handle card click and navigate to proposal details page
+   const handleCardClick = () => {
+    // Navigate to proposal details page with the proposal id
+    router.push(  `/dao/proposal/${id}`
+    );
+  };
 
     // Calculate the total number of votes
     const totalVotes = yesVotes + noVotes + abstainVotes;
@@ -51,11 +58,6 @@ export default function ProposalCard({
     }
   }
 
-    // Function to handle card click and navigate to proposal details page
-    const handleCardClick = () => {
-      // Navigate to proposal details page with the proposal id
-      router.push(`/dao/proposal/${id}`);
-    };
 
   return (
     <div
