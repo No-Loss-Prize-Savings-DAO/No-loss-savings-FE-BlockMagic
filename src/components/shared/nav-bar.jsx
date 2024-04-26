@@ -21,13 +21,13 @@ export const NavBar = () => {
             </Link>
             <div className="flex items-center gap-16">
               <Link href="/dao" className=" font-medium text-lg">
-                Dao
+                Governance
               </Link>
-              <Link href="/dao" className=" font-medium text-lg">
-                About
+              <Link href="/whitepaper" className=" font-medium text-lg">
+                Whitepaper
               </Link>
-              <Link href="/dao" className=" font-medium text-lg">
-                Join
+              <Link href="/tokenomics" className=" font-medium text-lg">
+                Tokenomics
               </Link>
 
               <ConnectButton />
