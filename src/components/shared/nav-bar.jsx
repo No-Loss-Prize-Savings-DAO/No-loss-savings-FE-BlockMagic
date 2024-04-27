@@ -22,13 +22,13 @@ export const NavBar = () => {
             </Link>
             <div className="flex items-center gap-12">
               <div className=" hidden lg:flex items-center gap-12">
-                <Link href="/dao" className=" font-medium text-2xl">
+                <Link href="/dao" className=" font-medium text-lg">
                   Governance
                 </Link>
-                <Link href="/whitepaper" className=" font-medium text-2xl">
+                <Link href="/whitepaper" className=" font-medium text-lg">
                   Whitepaper
                 </Link>
-                <Link href="/tokenomics" className=" font-medium text-2xl">
+                <Link href="/tokenomics" className=" font-medium text-lg">
                   Tokenomics
                 </Link>
               </div>
