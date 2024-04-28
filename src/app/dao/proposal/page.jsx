@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { SearchBar } from "@/components/dao/search-bar"
 import { ProposalCard } from "@/components/dao/proposal-card"
 import NewProposalDialog from "./NewProposalDialog";
@@ -41,6 +41,7 @@ export default function ProposalPage() {
               />
 
               <ProposalCard
+              id={6}
                 iconUrl="https://cdn.stamp.fyi/avatar/eth:0x28dF6625EF078Dc816423AE27830733Ee0aDd3da?s=40"
                 name="victor.eth"
                 status="Open"
@@ -53,6 +54,7 @@ export default function ProposalPage() {
               />
 
               <ProposalCard
+              id={5}
                 iconUrl="https://cdn.stamp.fyi/avatar/eth:0x28dF6625EF078Dc816423AE27830733Ee0aDd3da?s=40"
                 name="victor.eth"
                 status="Open"
@@ -65,6 +67,7 @@ export default function ProposalPage() {
               />
 
               <ProposalCard
+              id={4}
                 iconUrl="https://cdn.stamp.fyi/avatar/eth:0x28dF6625EF078Dc816423AE27830733Ee0aDd3da?s=40"
                 name="victor.eth"
                 status="Open"
@@ -77,6 +80,7 @@ export default function ProposalPage() {
               />
 
               <ProposalCard
+              id={3}
                 iconUrl="https://cdn.stamp.fyi/avatar/eth:0x28dF6625EF078Dc816423AE27830733Ee0aDd3da?s=40"
                 name="victor.eth"
                 status="Open"
@@ -89,6 +93,7 @@ export default function ProposalPage() {
               />
 
               <ProposalCard
+              id={2}
                 iconUrl="https://cdn.stamp.fyi/avatar/eth:0x28dF6625EF078Dc816423AE27830733Ee0aDd3da?s=40"
                 name="victor.eth"
                 status="Closed"

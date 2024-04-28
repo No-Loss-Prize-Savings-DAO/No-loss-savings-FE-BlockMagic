@@ -32,28 +32,6 @@ export default function NewProposalDialog({ onCreateProposal }) {
     closeDialog();
   }
 
-  // return (
-    // <>
-    //   <Dialog isOpen={isDialogOpen} onDismiss={closeDialog}>
-    //     <DialogContent>
-    //       <DialogHeader>
-    //         <DialogTitle>Are you absolutely sure?</DialogTitle>
-    //         <DialogDescription>
-    //           This action cannot be undone. This will permanently delete your account
-    //           and remove your data from our servers.
-    //         </DialogDescription>
-    //       </DialogHeader>
-    //       <div className="flex justify-end">
-    //         <Button variant="outline" onClick={closeDialog}>Cancel</Button>
-    //         <Button onClick={handleCreateProposal}>Confirm</Button>
-    //       </div>
-    //     </DialogContent>
-
-    //     <DialogTrigger>
-    //     <Button variant="outline" className="rounded-full" onClick={openDialog}>Create new proposal</Button>
-    //   </DialogTrigger>
-    //   </Dialog>
-
       return (
         <Dialog isOpen={isDialogOpen} onDismiss={closeDialog}>
           <DialogTrigger asChild>

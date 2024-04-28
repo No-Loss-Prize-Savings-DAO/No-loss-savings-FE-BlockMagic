@@ -19,8 +19,7 @@ export default function ProposalCard({
    // Function to handle card click and navigate to proposal details page
    const handleCardClick = () => {
     // Navigate to proposal details page with the proposal id
-    router.push(  `/dao/proposal/${id}`
-    );
+    router.push(  `/dao/proposal/${id}`);
   };
 
     // Calculate the total number of votes
