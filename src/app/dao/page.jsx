@@ -27,15 +27,7 @@ export default function Overview() {
 
 <div className="p-4 sm:container sm:mx-auto">
             <div>
-              {tab == 1 ? <ProposalPage /> : ""}
-              {tab == 2 ? <PrizePage /> : ""}
-              {tab == 3 ? <DrawPage /> : ""}
-              {/* {tab == 2 ? <NFTOverview fullPage={true} /> : ""} */}
-            </div>
-          </div>
-      </div>
-
-      <div className="min-h-screen ">
+              {tab == 0 ?       <div className="min-h-screen ">
         {/* Body */}
         <main className="max-w-5xl mx-auto py-20 ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -43,7 +35,15 @@ export default function Overview() {
           </div>
 
         </main>
+      </div> : ""}
+              {tab == 1 ? <ProposalPage /> : ""}
+              {tab == 2 ? <PrizePage /> : ""}
+              {tab == 3 ? <DrawPage /> : ""}
+            </div>
+          </div>
       </div>
+
+
     </>
   );
 }
