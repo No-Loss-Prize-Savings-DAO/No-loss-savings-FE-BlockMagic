@@ -18,16 +18,17 @@ const DashboardTabNavigation = ({ tabs, selectedTab, setTab }) => {
           <div className="flex items-center justify-start rtl:justify-end">
             <div className="flex">
               {tabs.map((tab) => (
-                <button
-                  key={tab.id}
+                <button      
+                  key={tab?.id}
+                  style={{ display: tab? 'block' : 'none' }}
                   className={`mr-2 rounded-xl border px-4 py-2 font-sans text-sm font-semibold no-underline focus:outline-none ${
-                    selectedTab === tab.id
+                    selectedTab === tab?.id
                       ? "bg-white text-gray-900"
                       : "text-white"
                   }`}
                   onClick={() => setTab(tab.id)}
                 >
-                  {tab.label}
+                  {tab?.label}
                 </button>
               ))}
             </div>

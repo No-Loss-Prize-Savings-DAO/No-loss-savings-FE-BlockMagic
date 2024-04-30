@@ -2,6 +2,7 @@
 
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers/react";
 
+export const creatorAddress = "0xDdb342ecc94236c29a5307d3757d0724D759453C"
 export const OPTIMISM_SEPOLIA_ID = 11155420;
 export const SEPOLIA_ID = 11155111;
 
