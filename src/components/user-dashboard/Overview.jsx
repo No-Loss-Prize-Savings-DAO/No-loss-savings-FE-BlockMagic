@@ -12,12 +12,12 @@ export default function Overview() {
       <div className="flex flex-col lg:flex-row m-4 mt-0 mb-0">
         <OverviewCard
           title="USDT Balance"
-          mainContent={Number(userBalance?.stableCoinBalance)}
+          mainContent={Number(userBalance?.stableCoinBalance) || 0}
           // subContent="+20.1% from last month"
         />
         <OverviewCard
           title="Blitz Balance"
-          mainContent={Number(userBalance?.contractTokenBalance)}
+          mainContent={Number(userBalance?.contractTokenBalance)||0}
           // subContent="+180.1% from last month"
         />
         <OverviewCard
