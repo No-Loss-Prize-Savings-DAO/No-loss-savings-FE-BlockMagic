@@ -41,7 +41,7 @@ export default function NewProposalDialog({ onCreateProposal }) {
         <DialogHeader>
           <DialogTitle>Create a new proposal</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Make changes to your profile here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">

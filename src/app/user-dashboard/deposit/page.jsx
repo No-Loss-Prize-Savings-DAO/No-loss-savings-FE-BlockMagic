@@ -1,3 +1,6 @@
+"use client";
+
+
 import { Button } from "../../../components/ui/button";
 import usdt from "../../../../public/images/token-swap/tether.svg";
 import Image from "next/image";
