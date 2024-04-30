@@ -8,6 +8,8 @@ import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 import { useRouter } from "next/navigation";
 import NotConnected from "@/components/shared/not-connected";
+import AdminOverview from "@/components/admin/AdminOverview";
+import { creatorAddress } from "@/connection";
 
 const UserDashboard = () => {
   const [tab, setTab] = useState(0);
@@ -16,7 +18,7 @@ const UserDashboard = () => {
   if (tab == 3) {
     router.push("/dao", { scroll: false });
   }
-  const { isConnected } = useWeb3ModalAccount();
+  const { isConnected, address } = useWeb3ModalAccount();
   const [isClient, setIsClient] = useState(false)
  
   useEffect(() => {
@@ -30,7 +32,8 @@ const UserDashboard = () => {
         <div className="mt-20 relative">
           <DashboardTabNavigation
             tabs={[
-              { id: 0, label: "Overview" }
+              { id: 0, label: "Overview" },
+              address == creatorAddress && { id: 1, label: "Admin" }
             ]}
             selectedTab={tab}
             setTab={setTab}
@@ -39,7 +42,7 @@ const UserDashboard = () => {
           <div className="p-4 sm:container sm:mx-auto">
             <div>
               {tab == 0 ? <Overview /> : ""}
-
+              {tab == 1 ? <AdminOverview/> : ""}
               {/* {tab == 2 ? <NFTOverview fullPage={true} /> : ""} */}
             </div>
           </div>

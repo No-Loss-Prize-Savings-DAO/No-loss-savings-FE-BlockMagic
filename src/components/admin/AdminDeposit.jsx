@@ -1,15 +1,12 @@
-import SelectBox from "@/components/user-dashboard/TokenSelect";
-import { Button } from "../../../components/ui/button";
-import bitcoin from "../../../../public/images/token-swap/bitcoin.svg";
-import dodgecoin from "../../../../public/images/token-swap/dogecoin.svg";
-import usdt from "../../../../public/images/token-swap/tether.svg";
+import { Button } from "../../components/ui/button";
+import usdt from "../../../public/images/token-swap/tether.svg";
 import Image from "next/image";
 import { getProvider } from "@/constants/providers";
 import { getSavingsContract, getUSDTContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
 
-export default function Deposit() {
+export default function AdminDeposit() {
   const { walletProvider } = useWeb3ModalProvider();
   const [depositAmount, setDepositAmount] = useState(0);
 
@@ -27,7 +24,7 @@ export default function Deposit() {
 
       console.log(approval);
       if (approval.status === 1) {
-        const transferFrom = await contract.deposit(depositAmount);
+        const transferFrom = await contract.refundWithdrawnAmount(depositAmount);
         const receipt = await transferFrom.wait();
 
         console.log(receipt);

@@ -2,7 +2,10 @@
 
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers/react";
 
+export const creatorAddress = "0xDdb342ecc94236c29a5307d3757d0724D759453C"
 export const OPTIMISM_SEPOLIA_ID = 11155420;
+export const SEPOLIA_ID = 11155111;
+
 export const OPTIMISM_ID = 10;
 
 const OP_mainnet = {
@@ -18,8 +21,17 @@ const OP_sepolia = {
   name: "Optimism Sepolia",
   currency: "ETH",
   explorerUrl: "https://sepolia-optimistic.etherscan.io",
-  rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL,
+  rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_OP_RPC_URL
 };
+
+const Sepolia = {
+  chainId: SEPOLIA_ID,
+  name: "Sepolia",
+  currency: "ETH",
+  explorerUrl: "https://sepolia.etherscan.io/",
+  rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+};
+
 
 
 const metadata = {
@@ -31,7 +43,7 @@ const metadata = {
 
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
-  chains: [OP_mainnet, OP_sepolia],
+  chains: [OP_mainnet, OP_sepolia, Sepolia],
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   enableAnalytics: false, // Optional - defaults
   themeVariables: {

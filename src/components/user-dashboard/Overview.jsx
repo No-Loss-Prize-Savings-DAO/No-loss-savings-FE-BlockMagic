@@ -1,31 +1,34 @@
 import Deposit from "@/app/user-dashboard/deposit/page";
 import DepositWithdrawTab from "./DepositWithdrawTab";
 import TransactionCard from "./TransactionCard";
-import OverviewCard from "../dashboards/OverviewCard";
+import OverviewCard from "../dashboards/OverviewCard"; 
+import { useGetUserBalance } from "@/hooks/useGetUserBalance";
 
 export default function Overview() {
+  const userBalance =  useGetUserBalance();
+  // console.log(userBalance);
   return (
     <div className="mt-16 md:m-16  border-solid border-2 border-grey-500 rounded-2xl">
       <div className="flex flex-col lg:flex-row m-4 mt-0 mb-0">
         <OverviewCard
-          title="Total Savings"
-          mainContent="$45,231.89"
-          subContent="+20.1% from last month"
+          title="USDT Balance"
+          mainContent={Number(userBalance?.stableCoinBalance) || 0}
+          // subContent="+20.1% from last month"
+        />
+        <OverviewCard
+          title="Blitz Balance"
+          mainContent={Number(userBalance?.contractTokenBalance)||0}
+          // subContent="+180.1% from last month"
         />
         <OverviewCard
           title="Withdrawals"
-          mainContent="$2350"
-          subContent="+180.1% from last month"
-        />
-        <OverviewCard
-          title="Profits"
-          mainContent="+12,234"
-          subContent="+19% from last month"
+          mainContent={0}
+          // subContent="+19% from last month"
         />
         <OverviewCard
           title="Active Now"
           mainContent="+573"
-          subContent="+201 since last hour"
+          // subContent="+201 since last hour"
         />
       </div>
       <div className="flex flex-col md:flex-row m-2 mt-0 mb-0">
