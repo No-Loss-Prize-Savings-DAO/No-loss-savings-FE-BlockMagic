@@ -3,6 +3,8 @@
 import { useWeb3Modal, useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { UserCircle2 } from "lucide-react";
+import Link from "next/link";
 
 export default function ConnectButton() {
   const { open } = useWeb3Modal();
@@ -16,7 +18,13 @@ export default function ConnectButton() {
   return (
     <>
       {isClient && isConnected ? (
-        <w3m-button/>
+     <div className="flex gap-12 items-center">
+         <w3m-button/>
+        <Link href="/user-dashboard" className="hidden lg:block">
+        {" "}
+        <UserCircle2 className="w-8 h-8 cursor-pointer" />
+      </Link>
+     </div>
       ) : (
         <Button
           onClick={() => open()}

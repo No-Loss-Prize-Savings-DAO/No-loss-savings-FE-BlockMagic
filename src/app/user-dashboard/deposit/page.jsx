@@ -1,17 +1,16 @@
-import SelectBox from "@/components/user-dashboard/TokenSelect";
 import { Button } from "../../../components/ui/button";
-import bitcoin from "../../../../public/images/token-swap/bitcoin.svg";
-import dodgecoin from "../../../../public/images/token-swap/dogecoin.svg";
 import usdt from "../../../../public/images/token-swap/tether.svg";
 import Image from "next/image";
 import { getProvider } from "@/constants/providers";
 import { getSavingsContract, getUSDTContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
+import Loading from "@/components/shared/Loading";
 
 export default function Deposit() {
   const { walletProvider } = useWeb3ModalProvider();
   const [depositAmount, setDepositAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const readWriteProvider = getProvider(walletProvider);
   const deposit = async () => {
@@ -22,7 +21,10 @@ export default function Deposit() {
       const usdtcontract = getUSDTContract(signer);
       const contract = getSavingsContract(signer);
 
-      const approve = await usdtcontract.approve(process.env.NEXT_PUBLIC_SAVINGS_CONTRACT, Number(depositAmount * 1000000));
+      const approve = await usdtcontract.approve(
+        process.env.NEXT_PUBLIC_SAVINGS_CONTRACT,
+        Number(depositAmount * 1000000),
+      );
       const approval = await approve.wait();
 
       console.log(approval);
@@ -40,10 +42,7 @@ export default function Deposit() {
     }
   };
 
-
-  const people = [
-    { name: "USDT", icon: usdt },
-  ];
+  const people = [{ name: "USDT", icon: usdt }];
   return (
     <div className="mb-0 rounded-xl" id="deposit">
       {/* <h3 className="font-bold text-2xl">Deposit</h3>/ */}
@@ -56,9 +55,11 @@ export default function Deposit() {
           type="number"
           placeholder="Amount..."
           className="bg-transparent w-[80%] invisibile h-[full] outline-none"
-          onChange={(e)=>{setDepositAmount(e.target.valueAsNumber)}}
+          onChange={(e) => {
+            setDepositAmount(e.target.valueAsNumber);
+          }}
         />{" "}
-          <div className="relative w-10 p-2 cursor-pointer text-left shadow-md focus:outline-none border border-grey-500 rounded-2xl sm:text-sm">
+        <div className="relative w-10 p-2 cursor-pointer text-left shadow-md focus:outline-none border border-grey-500 rounded-2xl sm:text-sm">
           <Image
             src={usdt}
             alt="usdt"
@@ -69,8 +70,7 @@ export default function Deposit() {
         </div>
       </div>
 
-      <p className="p-4 px-0 font-extralight">Total balance: 00000000</p>
-
+      {/* <p className="p-4 px-0 font-extralight">Total balance: 00000000</p> */}
 
       <Button
         variant={"outline"}
@@ -80,9 +80,7 @@ export default function Deposit() {
       >
         Deposit
       </Button>
-      {/* <button className="block m-8 p-8 pt-4 pb-4rounded-3xl shadow-xl ">
-          Deposit
-        </button> */}
+      {loading && <Loading />}
     </div>
   );
 }

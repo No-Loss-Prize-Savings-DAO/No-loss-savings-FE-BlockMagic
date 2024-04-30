@@ -33,6 +33,9 @@ export function NavMobile() {
           <Link href="/tokenomics" className=" font-medium text-2xl">
             Tokenomics
           </Link>
+          <Link href="/user-dashboard" className=" font-medium text-2xl">
+            User
+          </Link>
         </div>
       </SheetContent>
     </Sheet>

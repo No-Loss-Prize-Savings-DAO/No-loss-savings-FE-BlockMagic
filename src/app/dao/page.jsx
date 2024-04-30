@@ -25,25 +25,27 @@ export default function Overview() {
           setTab={setTab}
         />
 
-<div className="p-4 sm:container sm:mx-auto">
-            <div>
-              {tab == 0 ?       <div className="min-h-screen ">
-        {/* Body */}
-        <main className="max-w-5xl mx-auto py-20 ">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold mb-4">Overview</h2>
+        <div className="p-4 sm:container sm:mx-auto">
+          <div>
+            {tab == 0 ? (
+              <div className="min-h-screen ">
+                {/* Body */}
+                <main className="max-w-5xl mx-auto py-20 ">
+                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-3xl font-bold mb-4">Overview</h2>
+                  </div>
+                </main>
+              </div>
+            ) : (
+              ""
+            )}
+            {tab == 1 ? <ProposalPage /> : ""}
+            {tab == 2 ? <PrizePage /> : ""}
+            {tab == 3 ? <DrawPage /> : ""}
           </div>
-
-        </main>
-      </div> : ""}
-              {tab == 1 ? <ProposalPage /> : ""}
-              {tab == 2 ? <PrizePage /> : ""}
-              {tab == 3 ? <DrawPage /> : ""}
-            </div>
-          </div>
+        </div>
       </div>
-
-
+   
     </>
   );
 }

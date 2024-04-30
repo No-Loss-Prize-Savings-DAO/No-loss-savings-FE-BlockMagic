@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import ConnectButton from "@/hooks/useConnectButton";
 import { NavMobile } from "./nav-mobile";
+import { UserCircle2 } from "lucide-react";
 
 export const gluten = Gluten({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export const NavBar = () => {
               </div>
 
               <ConnectButton />
+          
               <div className="block lg:hidden">
                 <NavMobile />
               </div>

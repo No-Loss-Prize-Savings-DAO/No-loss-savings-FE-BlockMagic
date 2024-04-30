@@ -5,10 +5,13 @@ import { getProvider } from "@/constants/providers";
 import { getSavingsContract, getUSDTContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
+import Loading from "../shared/Loading";
 
 export default function AdminDeposit() {
   const { walletProvider } = useWeb3ModalProvider();
   const [depositAmount, setDepositAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
+
 
   const readWriteProvider = getProvider(walletProvider);
   const deposit = async () => {
@@ -66,7 +69,7 @@ export default function AdminDeposit() {
         </div>
       </div>
 
-      <p className="p-4 px-0 font-extralight">Total balance: 00000000</p>
+      {/* <p className="p-4 px-0 font-extralight">Total balance: 00000000</p> */}
 
 
       <Button
@@ -77,9 +80,7 @@ export default function AdminDeposit() {
       >
         Deposit
       </Button>
-      {/* <button className="block m-8 p-8 pt-4 pb-4rounded-3xl shadow-xl ">
-          Deposit
-        </button> */}
+      {loading && <Loading/>}
     </div>
   );
 }

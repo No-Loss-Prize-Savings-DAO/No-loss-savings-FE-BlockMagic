@@ -6,13 +6,16 @@ import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
 import { getProvider } from "@/constants/providers";
 import { getSavingsContract, getUSDTContract } from "@/constants/contracts";
+import Loading from "@/components/shared/Loading";
 
 export default function Withdraw() {
   const { walletProvider } = useWeb3ModalProvider();
   const [withdrawAmount, setWithdrawAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const readWriteProvider = getProvider(walletProvider);
   const withdraw = async () => {
+    setLoading(true)
     try {
       const signer = readWriteProvider
         ? await readWriteProvider.getSigner()
@@ -24,8 +27,11 @@ export default function Withdraw() {
       const receipt = await withdraw.wait();
 
       console.log(receipt);
+
+      setLoading(false);
     } catch (error) {
       console.error("Error  handling withdrawal:", error);
+      setLoading(false);
       throw error;
     }
   };
@@ -56,7 +62,7 @@ export default function Withdraw() {
         </div>
       </div>
 
-      <p className="p-4 px-0 font-extralight">Total balance: 00000000</p>
+      {/* <p className="p-4 px-0 font-extralight">Total balance: 00000000</p> */}
 
       <Button
         variant={"outline"}
@@ -66,9 +72,7 @@ export default function Withdraw() {
       >
         Withdraw
       </Button>
-      {/* <button className="block m-8 p-8 pt-4 pb-4rounded-3xl shadow-xl ">
-          Deposit
-        </button> */}
+      {loading && <Loading/>}
     </div>
   );
 }
