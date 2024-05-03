@@ -18,22 +18,26 @@ export default function Withdraw() {
   const withdraw = async () => {
     setLoading(true)
     try {
+      setLoading(true);
       const signer = readWriteProvider
         ? await readWriteProvider.getSigner()
         : null;
       const usdtcontract = getUSDTContract(signer);
       const contract = getSavingsContract(signer);
 
-      const withdraw = await contract.withdraw(withdrawAmount);
+      const amount = Number(withdrawAmount * 1e6);
+      const withdraw = await contract.withdraw(amount);
       const receipt = await withdraw.wait();
 
       console.log(receipt);
-
+      setWithdrawAmount(0);
       setLoading(false);
     } catch (error) {
       console.error("Error  handling withdrawal:", error);
       setLoading(false);
       throw error;
+    } finally{
+      setLoading(false);
     }
   };
   return (
@@ -49,8 +53,9 @@ export default function Withdraw() {
           placeholder="Amount..."
           className="bg-transparent h-[full] outline-none"
           onChange={(e) => {
-            setWithdrawAmount(e.target.valueAsNumber);
+            setWithdrawAmount(e.target.value);
           }}
+          value={withdrawAmount}
         />{" "}
         <div className="relative w-10 p-2 cursor-pointer text-left shadow-md focus:outline-none border border-grey-500 rounded-2xl sm:text-sm">
           <Image
