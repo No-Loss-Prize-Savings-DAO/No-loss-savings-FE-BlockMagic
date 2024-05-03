@@ -1,12 +1,28 @@
+"use client";
+
 import { X } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import DAOAgreement from "./DAOAgreement";
 
 function JoinDAO() {
+  const [open, setOpen] = useState(false);
+
+  function closeModal(){
+    setOpen(false)
+  }
+  const [isVisible, setIsVisible] = useState(true);
+
+  const hideComponent = () => {
+    setIsVisible(false);
+  };
+
+  if (!isVisible) {
+    return null;
+  }
   return (
     <div className="w-full p-3 mt-8 bg-green-100 rounded flex items-center justify-between">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>
           <div className="flex items-center">
             <div
@@ -46,10 +62,10 @@ function JoinDAO() {
             </div>
           </div>
         </DialogTrigger>
-        <DAOAgreement />
+        <DAOAgreement onSubmit={closeModal}/>
       </Dialog>
 
-      <X className="text-red-700 w-5 pointer" />
+      <X className="text-red-700 w-5 pointer" onClick={hideComponent}/>
     </div>
   );
 }

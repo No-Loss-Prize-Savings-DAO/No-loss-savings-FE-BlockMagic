@@ -5,8 +5,10 @@ import { Button } from "../ui/button";
 import { getRegulatoryComplianceContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { getProvider } from "@/constants/providers";
+import toast from "react-hot-toast";
 
-const AcceptDaoMembership = () => {
+
+const AcceptDaoMembership = ({closeModal}) => {
   const { walletProvider } = useWeb3ModalProvider();
 
   const readWriteProvider = getProvider(walletProvider);
@@ -19,8 +21,14 @@ const AcceptDaoMembership = () => {
         : null;
       const contract = getRegulatoryComplianceContract(signer);
       const acceptMembership = await contract.acceptAgreement();
-      const tx = acceptMembership.wait();
+      const tx = await acceptMembership.wait();
       console.log("Transaction: ", tx);
+      if (receipt.status === 1 && onSubmit) {
+        closeModal();
+        toast("Your request has been accepted and is being processed");
+      }
+      
+
     } catch (error) {
       console.error("An error occurred: ", error);
     }

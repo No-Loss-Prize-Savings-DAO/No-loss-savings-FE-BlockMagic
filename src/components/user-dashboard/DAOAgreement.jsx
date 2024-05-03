@@ -8,9 +8,12 @@ import {
 import { Button } from "../ui/button";
 import AcceptDaoMembership from "./AcceptDaoMembership";
 
-function DAOAgreement() {
+function DAOAgreement({onSubmit}) {
+
+    
   const setRejectedState = () => {
     localStorage.setItem("rejected", "true");
+    onSubmit();
   };
   return (
     <DialogContent className="sm:max-w-[425px] md:max-w-[550px]">
@@ -55,7 +58,7 @@ function DAOAgreement() {
       </div>
       <DialogFooter className="absolute bottom-0 p-4 bg-opacity-30 backdrop-blur-lg backdrop-filter w-full flex justify-between">
         <div className=" w-full flex gap-8">
-          <AcceptDaoMembership />
+          <AcceptDaoMembership closeModal={onSubmit}/>
           {/* <Button type="submit"   variant={"outline"} className="bg-[#0267FF] text-white rounded-xl">Accept</Button> */}
 
           <Button
