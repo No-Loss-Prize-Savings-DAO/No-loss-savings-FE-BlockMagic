@@ -18,23 +18,26 @@ export default function Deposit() {
   const readWriteProvider = getProvider(walletProvider);
   const deposit = async () => {
     try {
+      setLoading(true);
       const signer = readWriteProvider
         ? await readWriteProvider.getSigner()
         : null;
       const usdtcontract = getUSDTContract(signer);
       const contract = getSavingsContract(signer);
 
+      const amount = Number(depositAmount * 1e6);
       const approve = await usdtcontract.approve(
         process.env.NEXT_PUBLIC_SAVINGS_CONTRACT,
-        Number(depositAmount * 1000000),
+        amount,
       );
       const approval = await approve.wait();
 
       console.log(approval);
       if (approval.status === 1) {
-        const transferFrom = await contract.deposit(depositAmount);
+        const transferFrom = await contract.deposit(amount);
         const receipt = await transferFrom.wait();
 
+        setDepositAmount(0);
         console.log(receipt);
       } else {
         console.log("Approval Failed");
@@ -42,6 +45,8 @@ export default function Deposit() {
     } catch (error) {
       console.error("Error  handling transfer-from:", error);
       throw error;
+    } finally{
+      setLoading(false);
     }
   };
 
@@ -59,8 +64,9 @@ export default function Deposit() {
           placeholder="Amount..."
           className="bg-transparent w-[80%] invisibile h-[full] outline-none"
           onChange={(e) => {
-            setDepositAmount(e.target.valueAsNumber);
+            setDepositAmount(e.target.value);
           }}
+          value={depositAmount}
         />{" "}
         <div className="relative w-10 p-2 cursor-pointer text-left shadow-md focus:outline-none border border-grey-500 rounded-2xl sm:text-sm">
           <Image
@@ -80,6 +86,7 @@ export default function Deposit() {
         className="py-3 px-6 mt-4 gap-2 rounded-2xl border bg-[#0267FF] text-white text-sm w-fit"
         translate="no"
         onClick={deposit}
+        disabled={loading}
       >
         Deposit
       </Button>

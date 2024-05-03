@@ -8,7 +8,7 @@ const AdminDepositWithdrawTab = () => {
     return (
         <Tabs defaultValue="deposit" className="w-full">
         <TabsList className="w-full">
-          <TabsTrigger value="deposit">Deposit</TabsTrigger>
+          <TabsTrigger value="deposit">Refund</TabsTrigger>
           <TabsTrigger value="withdraw">Withdraw</TabsTrigger>
         </TabsList>
         <TabsContent value="deposit"><AdminDeposit/></TabsContent>

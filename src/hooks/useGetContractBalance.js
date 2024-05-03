@@ -1,44 +1,46 @@
 "use client";
 
 import { getProvider, readOnlyProvider } from "@/constants/providers";
-import { useWeb3ModalAccount, useWeb3ModalProvider } from "@web3modal/ethers/react";
+import {
+  useWeb3ModalAccount,
+  useWeb3ModalProvider,
+} from "@web3modal/ethers/react";
 import { useEffect, useState } from "react";
 import { getSavingsContract } from "@/constants/contracts";
 import { ethers } from "ethers";
 
-export function useGetUserBalance() {
+export function useGetContractBalance() {
   const { walletProvider } = useWeb3ModalProvider();
-  const {address} = useWeb3ModalAccount();
-  const [userBalance, setUserBalance] = useState();
+  const { address } = useWeb3ModalAccount();
+  const [contractBalance, setContractBalance] = useState();
 
   const readWriteProvider = getProvider(walletProvider);
 
-  const fetchUserBalance = async () => {
+  const fetchContractBalance = async () => {
     try {
       const signer = readWriteProvider
-      ? await readWriteProvider.getSigner()
-      : null;
+        ? await readWriteProvider.getSigner()
+        : null;
       const contract = getSavingsContract(signer);
       contract
-      .getUserBalance(address)
-      .then((res) => {
-        const converted = {
-          stableCoinBalance: res.stableCoinBalance,
-          contractTokenBalance: res.contractTokenBalance
-        }
-         
-        setUserBalance(converted);
-      })
-      .catch((err) => {
-        console.error("error fetching proposals: ", err);
-        setUserBalance((prev) => ({ ...prev, loading: false }));
-      });
-    } 
-    catch (error) {}
+        .getContractBalance()
+        .then((res) => {
+          const converted = {
+            stableCoinBalance: res.stableCoinBalance,
+            contractTokenBalance: res.contractTokenBalance,
+          };
+
+          setContractBalance(converted);
+        })
+        .catch((err) => {
+          console.error("error fetching proposals: ", err);
+          setContractBalance((prev) => ({ ...prev, loading: false }));
+        });
+    } catch (error) {}
   };
 
   useEffect(() => {
-    const getUserBalance = async () => {
+    const getContractBalance = async () => {
       const filter = {
         address: process.env.NEXT_PUBLIC_MOCK_USDT_CONTRACT,
         topics: [
@@ -48,8 +50,8 @@ export function useGetUserBalance() {
         // topics: [ethers.id("StableCoinWithdrawn(address,uint256)")],
       };
       const signer = readWriteProvider
-      ? await readWriteProvider.getSigner()
-      : null;
+        ? await readWriteProvider.getSigner()
+        : null;
       const contract = getSavingsContract(signer);
 
       try {
@@ -59,20 +61,20 @@ export function useGetUserBalance() {
             // fromBlock: 5726200,
           })
           .then((events) => {
-            fetchUserBalance();
+            fetchContractBalance();
           });
       } catch (error) {
         console.error("Error fetching logs: ", error);
       }
 
-      contract.on("StableCoinWithdrawn", fetchUserBalance);
+      contract.on("StableCoinWithdrawn", fetchContractBalance);
 
       // Cleanup function
-      return () => contract.off("StableCoinWithdrawn", fetchUserBalance);
+      return () => contract.off("StableCoinWithdrawn", fetchContractBalance);
     };
 
-    getUserBalance();
+    getContractBalance();
   }, [address]);
 
-  return userBalance;
+  return contractBalance;
 }
