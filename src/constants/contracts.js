@@ -3,6 +3,7 @@ import savingsAbi from "./savingsAbi.json";
 import usdtAbi from "./usdtAbi.json";
 import daoAbi from "./daoAbi.json";
 import prizeDistribution from "./prizeDistributionAbi.json";
+import regulatoryComplianceAbi from "./RegulatoryComplianceAbi.json";
 
 
 export const getSavingsContract = (providerOrSigner) =>
@@ -30,5 +31,12 @@ export const getUSDTContract = (providerOrSigner) =>
     new ethers.Contract(
       process.env.NEXT_PUBLIC_PRIZE_DISTRIBUTION_CONTRACT,
       prizeDistribution,
+      providerOrSigner,
+    );
+
+    export const getRegulatoryComplianceContract = (providerOrSigner) =>
+    new ethers.Contract(
+      process.env.NEXT_PUBLIC_REGULATORY_COMPLIANCE_CONTRACT,
+      regulatoryComplianceAbi,
       providerOrSigner,
     );

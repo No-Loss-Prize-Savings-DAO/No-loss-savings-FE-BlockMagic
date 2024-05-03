@@ -74,14 +74,14 @@ export default function AdminWithdraw() {
         </div>
       </div>
 
-      <p className="p-4 px-0 font-extralight">
+      <p className="p-0 font-extralight">
         Contract USDT Balance: $
         {Number(contractBalance?.stableCoinBalance) / 1e6 || 0}
       </p>
 
       <Button
         variant={"outline"}
-        className="py-3 px-6 mt-4 gap-2 rounded-2xl border bg-[#0267FF] text-white text-sm w-fit"
+        className="py-3 px-6 rounded-2xl border bg-[#0267FF] text-white text-sm w-fit"
         onClick={withdraw}
         translate="no"
       >

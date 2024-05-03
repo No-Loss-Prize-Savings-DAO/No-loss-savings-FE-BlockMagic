@@ -82,3 +82,27 @@ export function useGetUserBalance() {
 
   return userBalance;
 }
+
+//
+export const getUserDAOStatus = () => {
+  const { walletProvider } = useWeb3ModalProvider();
+  const { address } = useWeb3ModalAccount();
+  const [userDaoStatus, setUserDaoStatus] = useState();
+
+  const readWriteProvider = getProvider(walletProvider);
+
+  async function fetchUserStatus() {
+    const signer = readWriteProvider
+      ? await readWriteProvider.getSigner()
+      : null;
+    const contract = getSavingsContract(signer);
+    contract.isDAO(address).then((res) => {
+      // console.log(res);
+      setUserDaoStatus(res)
+    });
+  }
+
+  fetchUserStatus();
+
+  return userDaoStatus;
+};
