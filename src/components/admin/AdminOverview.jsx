@@ -103,9 +103,9 @@ export default function AdminOverview() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col md:flex-row m-2 mt-0 mb-0">
-          <div className="p-8 pt-6 pb-6 m-8  md:w-3/5 border-solid border-2 border-grey-500 rounded-2xl">
-            <h3 className="font-bold text-lg p-2 px-0">
+        <div className="mt-16 ">
+          <div className="p-8 pt-6 pb-6 mx-auto  md:w-3/5 ">
+            <h3 className="font-bold text-lg text-center p-2 px-0">
               You are not the creator
             </h3>
           </div>

@@ -26,12 +26,12 @@ export const NavBar = () => {
                 <Link href="/dao" className=" font-medium text-lg">
                   Governance
                 </Link>
-                <Link href="/whitepaper" className=" font-medium text-lg">
+                <Link href={'https://drive.google.com/file/d/1m7Kjn1KrtOwJHSqhZXfh-elOSPnHHq3E/view?usp=drive_link'}  target="_blank"  rel="noopener noreferrer"locale={false} className=" font-medium text-lg">
                   Whitepaper
                 </Link>
-                <Link href="/tokenomics" className=" font-medium text-lg">
+                {/* <Link href="/tokenomics" className=" font-medium text-lg">
                   Tokenomics
-                </Link>
+                </Link> */}
               </div>
 
               <ConnectButton />
