@@ -1,34 +1,88 @@
 import Deposit from "@/app/user-dashboard/deposit/page";
 import DepositWithdrawTab from "./DepositWithdrawTab";
 import TransactionCard from "./TransactionCard";
-import OverviewCard from "../dashboards/OverviewCard"; 
-import { useGetUserBalance } from "@/hooks/useGetUserBalance";
+import OverviewCard from "../dashboards/OverviewCard";
+import { getUserDAOStatus, useGetUserBalance } from "@/hooks/useGetUserBalance";
+import { getSavingsContract } from "@/constants/contracts";
+import { wssProvider } from "@/constants/providers";
+import JoinDAO from "./JoinDAO";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
+import { useEffect, useState } from "react";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
-export default function Overview() {
-  const userBalance =  useGetUserBalance();
+export default function asOverview() {
+  const userBalance = useGetUserBalance();
+  const isDao = getUserDAOStatus();
+  const isRejected = localStorage.getItem("rejected");
+  const { address } = useWeb3ModalAccount();
+  const [withdrawals, setWithdrawals] = useState([]);
+  const [deposits, setDeposits] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+
+  const QueryURL = "https://api.studio.thegraph.com/query/72134/blitz/v0.0.1";
+
+  const GET_STABLE_WITHDRAWALS = gql`
+    query GetStableWithdrawals($address: String!) {
+      stableCoinWithdrawns(where: { user: $address }) {
+        amount
+        blockTimestamp
+        user
+      }
+      stableCoinDepositeds(where: { user: $address }) {
+        amount
+        user
+        blockTimestamp
+      }
+    }
+  `;
+
+  useEffect(() => {
+    const client = new ApolloClient({
+      uri: QueryURL,
+      cache: new InMemoryCache(),
+    });
+
+    const fetchTransfers = async () => {
+      try {
+        const { data } = await client.query({
+          query: GET_STABLE_WITHDRAWALS,
+          variables: { address },
+        });
+        console.log(data);
+       
+        setDeposits(data?.stableCoinDepositeds);
+        setWithdrawals(data?.stableCoinWithdrawns); 
+        setTransactions([...data?.stableCoinDepositeds, ...data?.stableCoinWithdrawns])
+      } catch (error) {
+        console.log("error fetching data:", error);
+      }
+    };
+
+    fetchTransfers();
+  }, [address, GET_STABLE_WITHDRAWALS]);
+  console.log(transactions);
+
+
   // console.log(userBalance);
   return (
     <div className="mt-16 md:m-16  border-solid border-2 border-grey-500 rounded-2xl">
+      {!isDao && isRejected !== "true" && <JoinDAO />}
+
       <div className="flex flex-col lg:flex-row m-4 mt-0 mb-0">
         <OverviewCard
           title="USDT Balance"
-          mainContent={Number(userBalance?.stableCoinBalance) || 0}
+          mainContent={Number(userBalance?.stableCoinBalance) / 1e6 || 0}
           // subContent="+20.1% from last month"
         />
         <OverviewCard
           title="Blitz Balance"
-          mainContent={Number(userBalance?.contractTokenBalance)||0}
+          mainContent={Number(userBalance?.contractTokenBalance) / 1e18 || 0}
           // subContent="+180.1% from last month"
         />
         <OverviewCard
           title="Withdrawals"
-          mainContent={0}
+          mainContent={withdrawals.length}
           // subContent="+19% from last month"
-        />
-        <OverviewCard
-          title="Active Now"
-          mainContent="+573"
-          // subContent="+201 since last hour"
         />
       </div>
       <div className="flex flex-col md:flex-row m-2 mt-0 mb-0">
@@ -40,23 +94,9 @@ export default function Overview() {
 
         <TransactionCard
           title="Transactions"
-          transactions={[
-            {
-              type: "Deposit",
-              email: "olivia.martin@email.com",
-              amount: "+$200.00",
-            },
-            {
-              type: "Withdrawal",
-              email: "olivia.martin@email.com",
-              amount: "-$200.00",
-            },
-            {
-              type: "Deposit",
-              email: "olivia.martin@email.com",
-              amount: "+$1,999.00",
-            },
-          ]}
+          transactions={
+            Array.isArray(transactions) ? transactions.sort((a, b) => a.blockTimestamp - b.blockTimestamp) : []
+          }
         />
       </div>
     </div>

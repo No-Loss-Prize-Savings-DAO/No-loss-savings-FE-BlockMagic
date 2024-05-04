@@ -5,14 +5,17 @@ import { getProvider } from "@/constants/providers";
 import { getDAOContract, getSavingsContract, getUSDTContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
+import Loading from "../shared/Loading";
 
 export default function RemoveMember() {
     const { walletProvider } = useWeb3ModalProvider();
     const [memberAddress, setMemberAddress] = useState("");
+    const [loading, setLoading] = useState(false);
   
     const readWriteProvider = getProvider(walletProvider);
     const handleRemoveMember = async () => {
       try {
+        setLoading(true);
         const signer = readWriteProvider
           ? await readWriteProvider.getSigner()
           : null;
@@ -22,9 +25,12 @@ export default function RemoveMember() {
         const receipt = await removeMember.wait();
   
         console.log(receipt);
+        setMemberAddress("");
       } catch (error) {
         console.error("Error  handling remove member:", error);
         throw error;
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -40,11 +46,12 @@ export default function RemoveMember() {
           type="number"
           placeholder="Amount..."
           className="bg-transparent w-[80%] invisibile h-[full] outline-none"
-          onChange={(e)=>{setMemberAddress(e.target.value)}}
+          onChange={(e) => {
+            setMemberAddress(e.target.value);
+          }}
+          value={memberAddress}
         />{" "}
-    
       </div>
-
 
       <Button
         variant={"outline"}
@@ -54,7 +61,7 @@ export default function RemoveMember() {
       >
         Remove member
       </Button>
-
+      {loading && <Loading />}
     </div>
   );
 }
