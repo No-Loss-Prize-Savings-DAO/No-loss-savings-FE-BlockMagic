@@ -55,30 +55,33 @@ export default function ProposalList() {
 
   // Function to handle card click and navigate to proposal details page
   const handleProposalClick = (id) => {
+    setLoading(true);
+    {loading && <Loading />}
     // Navigate to proposal details page with the proposal id
     router.push(`/dao/proposal/${id}`);
+    setLoading(false);
   };
 
   return (
     <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {proposals.map((proposal, index) => (
-            <ProposalCard
-              key={index}
-              id={index + 1}
-              name={proposal.proposer}
-              description={proposal.description}
-              status={proposal.active}
-              endDate={proposal.endTime}
-              onClick={() => handleProposalClick(index + 1)} // Pass proposal ID to handle click function
-            />
-          ))}
-        </div>
-      )}
-    </div>
+    {loading ? (
+      <p>Loading...</p>
+    ) : (
+      <div className="space-y-4">
+        {proposals.map((proposal, index) => (
+          <ProposalCard
+            key={index}
+            id={index + 1}
+            creator={proposal.proposer}
+            description={proposal.description}
+            status={proposal.active}
+            endDate={proposal.endTime}
+            onClick={() => handleProposalClick(index + 1)} // Pass proposal ID to handle click function
+          />
+        ))}
+      </div>
+    )}
+  </div>
   );
 }
 

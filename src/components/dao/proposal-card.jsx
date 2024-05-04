@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 export default function ProposalCard({
   id,
-  name,
+  creator,
   status,
   title,
   description,
@@ -12,6 +12,11 @@ export default function ProposalCard({
   endDate,
 }) {
   const router = useRouter();
+
+  const truncatedCreator =
+  creator && creator.length > 10
+    ? creator.substring(0, 6) + "..." + creator.substring(creator.length - 4)
+    : creator;
 
    // Function to handle card click and navigate to proposal details page
    const handleCardClick = () => {
@@ -65,7 +70,7 @@ if (status === true) {
           <div className="mr-2 overflow-hidden rounded-full">
             Proposer:
           </div>
-          <span className="font-semibold text-sm">{name}</span>
+          <span className="font-semibold text-sm">{truncatedCreator}</span>
         </div>
 
         <span
@@ -83,22 +88,6 @@ if (status === true) {
       <div className="mt-2">
         <h3 className="text-lg font-bold">{title}</h3>
         <p className="text-base font-semibold text-[#f0f0f0]">{description}</p>
-
-          {/* Vote Poll Display UI */}
-          {/* <div className="mt-4">
-          <div className="flex items-center">
-            <div className="flex-1 mr-2">
-              <div className="h-4 bg-gray-300 rounded-lg" style={{ width: `${yesPercentage}%` }}></div>
-            </div>
-            <span className="text-sm">Yes: {yesPercentage.toFixed(1)}%</span>
-          </div>
-          <div className="flex items-center mt-2">
-            <div className="flex-1 mr-2">
-              <div className="h-4 bg-gray-300 rounded-lg" style={{ width: `${noPercentage}%` }}></div>
-            </div>
-            <span className="text-sm">No: {noPercentage.toFixed(1)}%</span>
-          </div>
-          </div> */}
 
           {/* Duration */}
         <div className="mt-2 text-sm">
