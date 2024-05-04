@@ -59,12 +59,16 @@ export default function ProposalCard({
       onClick={handleCardClick}
     >
       <div className="flex justify-between items-center">
-        <div className="mr-2 overflow-hidden rounded-full">Proposer:</div>
+        <div className="mr-0 overflow-hidden rounded-full">Proposer: 
+        <span className="text-sm font-medium pl-1">
         {`${String(name).substring(0, 8)}...${String(name).substring(
           String(name).length - 9,
           String(name).length - 1,
         )}`}
 
+        </span>
+        </div>
+   
         <span
           className={`inline-block text-sm rounded-full py-1 px-2 ${
             status === true
