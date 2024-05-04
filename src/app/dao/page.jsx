@@ -16,10 +16,9 @@ export default function Overview() {
       <div className="mt-20 relative">
         <DashboardTabNavigation
           tabs={[
-            { id: 0, label: "Overview" },
-            { id: 1, label: "Proposals" },
-            { id: 2, label: "Prizes" },
-            { id: 3, label: "Draws" },
+            { id: 0, label: "Proposals" },
+            { id: 1, label: "Prizes" },
+            { id: 2, label: "Draws" },
           ]}
           selectedTab={tab}
           setTab={setTab}
@@ -27,26 +26,9 @@ export default function Overview() {
 
         <div className="p-4 sm:container sm:mx-auto">
           <div>
-            {tab == 0 ? (
-              <div className="min-h-screen ">
-                {/* Body */}
-                <main className="max-w-5xl mx-auto py-20 ">
-                  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl font-bold mb-4">Overview</h2>
-
-                    <h3>Your voting power is: </h3>
-                    <h3>Total dao member is: </h3>
-                  </div>
-
-                
-                </main>
-              </div>
-            ) : (
-              ""
-            )}
-            {tab == 1 ? <ProposalPage /> : ""}
-            {tab == 2 ? <PrizePage /> : ""}
-            {tab == 3 ? <DrawPage /> : ""}
+            {tab == 0 ? <ProposalPage /> : ""}
+            {tab == 1 ? <PrizePage /> : ""}
+            {tab == 2 ? <DrawPage /> : ""}
           </div>
         </div>
       </div>

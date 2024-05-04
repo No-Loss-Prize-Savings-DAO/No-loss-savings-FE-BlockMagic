@@ -108,6 +108,7 @@ export default function NewProposalDialog() {
 
 
   return (
+    <div>
     <Dialog isOpen={isDialogOpen} onDismiss={closeDialog}>
       <DialogTrigger asChild>
         <Button variant="outline" className="rounded-full" onClick={openDialog}>Create new proposal</Button>
@@ -153,10 +154,10 @@ export default function NewProposalDialog() {
         </DialogFooter>
       </DialogContent>
 
-      <ToastContainer />
     </Dialog>
 
-
+    <ToastContainer />
+    </div>
   )
 
 }
