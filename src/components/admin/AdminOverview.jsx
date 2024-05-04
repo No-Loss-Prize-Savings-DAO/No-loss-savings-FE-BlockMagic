@@ -7,11 +7,50 @@ import TransferUSDT from "./TransferUSDT";
 import DistributeProfit from "./DistributeProfit";
 import OverviewCard from "../dashboards/OverviewCard";
 import { useGetContractBalance } from "@/hooks/useGetContractBalance";
+import { useEffect, useState } from "react";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
 export default function AdminOverview() {
   const { address } = useWeb3ModalAccount();
+  const [withdrawals, setWithdrawals] = useState([]);
 
-  const contractBalance = useGetContractBalance()
+  const contractBalance = useGetContractBalance();
+  const contractAddress = process.env.NEXT_PUBLIC_SAVINGS_CONTRACT;
+  const QueryURL = "https://api.studio.thegraph.com/query/72134/blitz/v0.0.1";
+
+  const GET_STABLE_WITHDRAWALS = gql`
+    query GetStableWithdrawals($contractAddress: String!) {
+      stableCoinWithdrawns(where: { user: $contractAddress }) {
+        amount
+        blockTimestamp
+        user
+      }
+    }
+  `;
+
+  useEffect(() => {
+    const client = new ApolloClient({
+      uri: QueryURL,
+      cache: new InMemoryCache(),
+    });
+
+    const fetchTransfers = async () => {
+      try {
+        const { data } = await client.query({
+          query: GET_STABLE_WITHDRAWALS,
+          variables: { contractAddress },
+        });
+        console.log(data);
+        setWithdrawals(data?.stableCoinWithdrawns); 
+      } catch (error) {
+        console.log("error fetching data:", error);
+      }
+    };
+
+    fetchTransfers();
+  }, [address, GET_STABLE_WITHDRAWALS]);
+  // console.log(transactions);
+
   // console.log(userBalance);
   return (
     <>
@@ -30,7 +69,7 @@ export default function AdminOverview() {
             />
             <OverviewCard
               title="Withdrawals"
-              mainContent={0}
+              mainContent={withdrawals.length}
               // subContent="+19% from last month"
             />
           </div>
