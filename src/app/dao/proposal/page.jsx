@@ -14,17 +14,17 @@ export default function ProposalPage() {
       <div className="min-h-screen ">
         {/* Body */}
         <main className="p-4 sm:container sm:mx-auto mx-auto py-20 ">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold mb-4">Proposals</h2>
           </div>
 
-        <div className="flex gap-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-between">
+        <div className="flex justify-between">
           <SearchBar />
           <NewProposalDialog />
         </div>
 
           {/* Proposal list */}
-          <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+          <div className=" mx-auto px-4 py-6 sm:px-6 lg:px-8">
             <div className="grid gap-4">
 
               <ProposalList />
