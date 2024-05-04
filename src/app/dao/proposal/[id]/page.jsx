@@ -13,7 +13,6 @@ export default function ProposalDetailPage() {
   const voters = [
     { address: "0x1234567890", vote: "Yes", tokensHeld: 100 },
     { address: "0x0987654321", vote: "No", tokensHeld: 50 },
-    { address: "0xabcdef1234", vote: "Abstain", tokensHeld: 75 },
     // Add more voter objects as needed
   ];
 
@@ -69,7 +68,6 @@ export default function ProposalDetailPage() {
         <VoteResult
           yesVotes={200}
           noVotes={20}
-          abstainVotes={49}
         />
       </div>
     </div>

@@ -46,14 +46,6 @@ export default function VoteCast({ onVote }) {
         >
           No
         </button>
-        <button
-          className={`border-slate-800 border hover:border-2 hover:border-white text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-            selectedOption === "abstain" ? "border-2 border-white" : ""
-          }`}
-          onClick={() => handleOptionClick("abstain")}
-        >
-          Abstain
-        </button>
       </div>
       <button
         className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4 focus:outline-none focus:shadow-outline"

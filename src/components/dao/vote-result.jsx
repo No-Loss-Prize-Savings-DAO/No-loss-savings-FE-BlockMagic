@@ -1,16 +1,14 @@
 import React from "react";
 
 export default function VoteResult({ yesVotes,
-    noVotes,
-    abstainVotes }) {
+    noVotes }) {
 
         // Calculate the total number of votes
-        const totalVotes = yesVotes + noVotes + abstainVotes;
+        const totalVotes = yesVotes + noVotes;
 
         // Calculate the percentage of votes for each option
         const yesPercentage = (yesVotes / totalVotes) * 100;
         const noPercentage = (noVotes / totalVotes) * 100;
-        const abstainPercentage = (abstainVotes / totalVotes) * 100;
 
   return (
     <div className="border border-slate-800 rounded-lg p-4 mt-4 max-w-sm">
@@ -39,19 +37,6 @@ export default function VoteResult({ yesVotes,
             <div
               className="h-full bg-white"
               style={{ width: `${noPercentage}%` }}
-            ></div>
-          </div>
-        </div>
-        <div className="items-center">
-            <div className="flex justify-between">
-          <p className="font-bold text-sm mr-2">Abstain:</p>
-          <p className="font-bold text-sm ml-2">{abstainPercentage.toFixed(1)}%</p>
-
-            </div>
-          <div className="w-full h-2 bg-gray-300 rounded-lg overflow-hidden">
-            <div
-              className="h-full bg-white"
-              style={{ width: `${abstainPercentage}%` }}
             ></div>
           </div>
         </div>
