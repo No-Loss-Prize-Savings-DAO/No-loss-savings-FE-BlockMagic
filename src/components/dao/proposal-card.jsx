@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
 
@@ -8,10 +7,8 @@ export default function ProposalCard({
   status,
   title,
   description,
-  iconUrl,
   yesVotes,
   noVotes,
-  abstainVotes,
   endDate,
 }) {
   const router = useRouter();
@@ -23,39 +20,39 @@ export default function ProposalCard({
   };
 
     // Calculate the total number of votes
-    const totalVotes = yesVotes + noVotes + abstainVotes;
+    const totalVotes = yesVotes + noVotes;
 
     // Calculate the percentage of votes for each option
     const yesPercentage = (yesVotes / totalVotes) * 100;
     const noPercentage = (noVotes / totalVotes) * 100;
-    const abstainPercentage = (abstainVotes / totalVotes) * 100;
 
-    // Calculate duration based on the end date and status
-  let durationText = "";
-  if (status === "Open") {
-    const endDateObj = new Date(endDate);
-    const currentDate = new Date();
-    const timeDiff = endDateObj.getTime() - currentDate.getTime();
-    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+// Calculate duration based on the end date and status
+let durationText = "";
+if (status === true) {
+  const endDateObj = new Date(Number(BigInt(endDate) * 1000n)); // Convert seconds to milliseconds
+  const currentDate = new Date();
+  const timeDiff = endDateObj.getTime() - currentDate.getTime();
+  const daysDiff = Math.ceil(Number(timeDiff) / (1000 * 3600 * 24));
 
-    if (daysDiff > 0) {
-      durationText = `Ends in ${daysDiff} day${daysDiff === 1 ? "" : "s"}`;
-    } else {
-      durationText = "Ending today";
-    }
-  } else if (status === "Closed") {
-    const endDateObj = new Date(endDate);
-    const currentDate = new Date();
-    const timeDiff = currentDate.getTime() - endDateObj.getTime();
-    const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
-    const monthsDiff = Math.floor(daysDiff / 30);
-
-    if (monthsDiff === 0) {
-      durationText = `Ended ${daysDiff} day${daysDiff === 1 ? "" : "s"} ago`;
-    } else {
-      durationText = `Ended ${monthsDiff} month${monthsDiff === 1 ? "" : "s"} ago`;
-    }
+  if (daysDiff > 0) {
+    durationText = `Ends in ${daysDiff} day${daysDiff === 1 ? "" : "s"}`;
+  } else {
+    durationText = "Ending today";
   }
+} else if (status === false) {
+  const endDateObj = new Date(Number(BigInt(endDate) * 1000n)); // Convert seconds to milliseconds
+  const currentDate = new Date();
+  const timeDiff = currentDate.getTime() - endDateObj.getTime();
+  const daysDiff = Math.floor(Number(timeDiff) / (1000 * 3600 * 24));
+  const monthsDiff = Math.floor(daysDiff / 30);
+
+  if (monthsDiff === 0) {
+    durationText = `Ended ${daysDiff} day${daysDiff === 1 ? "" : "s"} ago`;
+  } else {
+    durationText = `Ended ${monthsDiff} month${monthsDiff === 1 ? "" : "s"} ago`;
+  }
+}
+
 
 
   return (
@@ -66,25 +63,21 @@ export default function ProposalCard({
       <div className="flex justify-between items-center">
         <div className="flex">
           <div className="mr-2 overflow-hidden rounded-full">
-            <Image
-              src={iconUrl}
-              alt="Default Icon"
-              className="w-6 h-6 object-cover"
-              height={24}
-              width={24}
-            />
+            Proposer:
           </div>
           <span className="font-semibold text-sm">{name}</span>
         </div>
 
         <span
           className={`inline-block text-sm rounded-full py-1 px-2 ${
-            status === "Open"
+            status === true
               ? "bg-green-600 text-white"
               : "bg-red-600 text-white"
           }`}
         >
-          {status}
+          {status === true
+              ? "Open"
+              : "Closed"}
         </span>
       </div>
       <div className="mt-2">
@@ -92,7 +85,7 @@ export default function ProposalCard({
         <p className="text-base font-semibold text-[#f0f0f0]">{description}</p>
 
           {/* Vote Poll Display UI */}
-          <div className="mt-4">
+          {/* <div className="mt-4">
           <div className="flex items-center">
             <div className="flex-1 mr-2">
               <div className="h-4 bg-gray-300 rounded-lg" style={{ width: `${yesPercentage}%` }}></div>
@@ -105,20 +98,14 @@ export default function ProposalCard({
             </div>
             <span className="text-sm">No: {noPercentage.toFixed(1)}%</span>
           </div>
-          <div className="flex items-center mt-2">
-            <div className="flex-1 mr-2">
-              <div className="h-4 bg-gray-300 rounded-lg" style={{ width: `${abstainPercentage}%` }}></div>
-            </div>
-            <span className="text-sm">Abstain: {abstainPercentage.toFixed(1)}%</span>
-          </div>
-          </div>
+          </div> */}
 
           {/* Duration */}
         <div className="mt-2 text-sm">
-          {status === "Open" && (
+          {status === true && (
             <span>{durationText}</span>
           )}
-          {status === "Closed" && (
+          {status === false && (
             <span>{durationText}</span>
           )}
         </div>

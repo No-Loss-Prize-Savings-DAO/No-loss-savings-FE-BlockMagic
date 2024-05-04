@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { SearchBar } from "@/components/dao/search-bar"
-import { ProposalCard } from "@/components/dao/proposal-card"
+import { SearchBar } from "@/components/dao/search-bar";
+import { ProposalCard } from "@/components/dao/proposal-card";
+import { ProposalList } from '@/app/dao/proposal/ProposalList';
 import NewProposalDialog from "./NewProposalDialog";
 
 export default function ProposalPage() {
@@ -25,7 +26,10 @@ export default function ProposalPage() {
           {/* Proposal list */}
           <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
             <div className="grid gap-4">
-              <ProposalCard
+
+              <ProposalList />
+
+              {/* <ProposalCard
               id={7}
                 iconUrl="https://cdn.stamp.fyi/avatar/eth:0x28dF6625EF078Dc816423AE27830733Ee0aDd3da?s=40"
                 name="victor.eth"
@@ -35,7 +39,6 @@ export default function ProposalPage() {
                 onClick=""
                 yesVotes={200}
                 noVotes={10}
-                abstainVotes={10}
                 endDate={"2024-05-01"} // Sample end date, format: "YYYY-MM-DD"
             
               />
@@ -50,7 +53,6 @@ export default function ProposalPage() {
                 onClick=""
                 yesVotes={100}
                 noVotes={30}
-                abstainVotes={10}
               />
 
               <ProposalCard
@@ -63,7 +65,6 @@ export default function ProposalPage() {
                 onClick=""
                 yesVotes={100}
                 noVotes={50}
-                abstainVotes={20}
               />
 
               <ProposalCard
@@ -76,7 +77,6 @@ export default function ProposalPage() {
                 onClick=""
                 yesVotes={50}
                 noVotes={20}
-                abstainVotes={10}
               />
 
               <ProposalCard
@@ -89,7 +89,6 @@ export default function ProposalPage() {
                 onClick=""
                 yesVotes={70}
                 noVotes={5}
-                abstainVotes={5}
               />
 
               <ProposalCard
@@ -102,7 +101,6 @@ export default function ProposalPage() {
                 onClick=""
                 yesVotes={200}
                 noVotes={10}
-                abstainVotes={10}
               />
 
               <ProposalCard
@@ -115,10 +113,10 @@ export default function ProposalPage() {
                 onClick=""
                 yesVotes={200}
                 noVotes={10}
-                abstainVotes={10}
                 endDate={"2024-04-01"} // Sample end date, format: "YYYY-MM-DD"
                 
-              />
+              /> */}
+
             </div>
           </div>
         </main>
