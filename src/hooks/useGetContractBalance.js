@@ -6,8 +6,10 @@ import {
   useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
 import { useEffect, useState } from "react";
-import { getSavingsContract } from "@/constants/contracts";
+import { getSavingsContract, getUSDTContract, getBLZContract  } from "@/constants/contracts";
 import { ethers } from "ethers";
+
+const contractAddress = "0x8b886B6d3FB17c56645F073DD41981f607c1B096"; 
 
 export function useGetContractBalance() {
   const { walletProvider } = useWeb3ModalProvider();
@@ -78,3 +80,40 @@ export function useGetContractBalance() {
 
   return contractBalance;
 }
+
+export const getContractTokenBalances = () => {
+  const { walletProvider } = useWeb3ModalProvider();
+  const { address } = useWeb3ModalAccount();
+  const [contractUsdtBalance, setContractUsdtBalance] = useState(0);
+  const [contractBlzBalance, setContractBlzBalance] = useState(0);
+
+  const readWriteProvider = getProvider(walletProvider);
+
+  async function fetchUserTokenBalances() {
+    const signer = readWriteProvider
+      ? await readWriteProvider.getSigner()
+      : null;
+    const usdtContract = getUSDTContract(signer);
+    const blzContract = getBLZContract(signer);
+
+ usdtContract.balanceOf(contractAddress).then((res)=>{
+  // console.log(res);
+  setContractUsdtBalance(res);
+ });
+
+ blzContract.balanceOf(contractAddress).then((res)=>{
+  // console.log(res);
+  setContractBlzBalance(res);
+ });
+    // const blzBalance =  blzContract.balanceOf(address);
+    // console.log(usdtBalance);
+
+    // setUserUsdtBalance(usdtContract.balanceOf(address));
+    // setUserBlzBalance(blzBalance);
+
+  }
+
+  fetchUserTokenBalances();
+
+  return {contractUsdtBalance, contractBlzBalance};
+};

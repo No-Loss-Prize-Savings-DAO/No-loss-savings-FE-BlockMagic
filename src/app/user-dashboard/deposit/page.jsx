@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 
 import { Button } from "../../../components/ui/button";
 import usdt from "../../../../public/images/token-swap/tether.svg";
@@ -7,23 +7,25 @@ import Image from "next/image";
 import { getProvider } from "@/constants/providers";
 import { getSavingsContract, getUSDTContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
-import { useState } from "react";
+
+import { toast } from 'react-toastify';
 import Loading from "@/components/shared/Loading";
 
 export default function Deposit() {
   const { walletProvider } = useWeb3ModalProvider();
   const [depositAmount, setDepositAmount] = useState(0);
   const [loading, setLoading] = useState(false);
+  
 
   const readWriteProvider = getProvider(walletProvider);
   const deposit = async () => {
+    const signer = readWriteProvider
+    ? await readWriteProvider.getSigner()
+    : null;
+  const usdtcontract = getUSDTContract(signer);
+  const contract = getSavingsContract(signer);
     try {
       setLoading(true);
-      const signer = readWriteProvider
-        ? await readWriteProvider.getSigner()
-        : null;
-      const usdtcontract = getUSDTContract(signer);
-      const contract = getSavingsContract(signer);
 
       const amount = Number(depositAmount * 1e6);
       const approve = await usdtcontract.approve(
@@ -43,8 +45,12 @@ export default function Deposit() {
         console.log("Approval Failed");
       }
     } catch (error) {
-      console.error("Error  handling transfer-from:", error);
+      setLoading(false);
+      // const decodedError = contract.interface.parseError(error.data);/
+      console.log("Error handling deposit:", error.message);
+      toast.error(`Error handling deposit: ${error.message}`);
       throw error;
+      
     } finally{
       setLoading(false);
     }

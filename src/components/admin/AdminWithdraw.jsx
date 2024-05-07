@@ -7,6 +7,7 @@ import { getProvider } from "@/constants/providers";
 import { getSavingsContract, getUSDTContract } from "@/constants/contracts";
 import { useGetContractBalance } from "@/hooks/useGetContractBalance";
 import Loading from "../shared/Loading";
+import { toast } from "react-toastify";
 
 export default function AdminWithdraw() {
   const { walletProvider } = useWeb3ModalProvider();
@@ -17,12 +18,13 @@ export default function AdminWithdraw() {
 
   const readWriteProvider = getProvider(walletProvider);
   const withdraw = async () => {
+    const signer = readWriteProvider
+      ? await readWriteProvider.getSigner()
+      : null;
+    const contract = getSavingsContract(signer);
+
     try {
       setLoading(true);
-      const signer = readWriteProvider
-        ? await readWriteProvider.getSigner()
-        : null;
-      const contract = getSavingsContract(signer);
 
       const amount = Number(withdrawAmount * 1e6);
       const withdraw = await contract.withdrawAmount(proposalId, amount);
@@ -33,6 +35,8 @@ export default function AdminWithdraw() {
       setProposalId(0);
     } catch (error) {
       console.error("Error  handling withdrawal:", error);
+      setLoading(false);
+      toast.error(`Error handling withdrawal: ${error}`);
       throw error;
     } finally {
       setLoading(false);
