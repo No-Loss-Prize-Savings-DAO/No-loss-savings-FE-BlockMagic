@@ -7,7 +7,7 @@ import {
 } from "@web3modal/ethers/react";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { getSavingsContract, getUSDTContract, getBLZContract } from "@/constants/contracts";
+import { getSavingsContract, getUSDTContract, getBLZContract, getRegulatoryComplianceContract } from "@/constants/contracts";
 
 
 export function useGetUserBalance() {
@@ -107,6 +107,51 @@ export const getUserDAOStatus = () => {
   return userDaoStatus;
 };
 
+export const getDAOAgreementResponse = () => {
+  const { walletProvider } = useWeb3ModalProvider();
+  const { address } = useWeb3ModalAccount();
+  const [hasResponded, setHasResponded] = useState();
+
+  const readWriteProvider = getProvider(walletProvider);
+
+  async function fetchUserStatus() {
+    const signer = readWriteProvider
+      ? await readWriteProvider.getSigner()
+      : null;
+    const contract = getRegulatoryComplianceContract(signer);
+    contract.userResponded(address).then((res) => {
+      // console.log(res);
+      setHasResponded(res)
+    });
+  }
+
+  fetchUserStatus();
+
+  return hasResponded;
+};
+
+export const getDAOAgreementStatus = () => {
+  const { walletProvider } = useWeb3ModalProvider();
+  const { address } = useWeb3ModalAccount();
+  const [hasAgreed, setHasAgreed] = useState();
+
+  const readWriteProvider = getProvider(walletProvider);
+
+  async function fetchUserStatus() {
+    const signer = readWriteProvider
+      ? await readWriteProvider.getSigner()
+      : null;
+    const contract = getRegulatoryComplianceContract(signer);
+    contract.agreementStatus(address).then((res) => {
+      // console.log(res);
+      setHasAgreed(res)
+    });
+  }
+
+  fetchUserStatus();
+
+  return hasAgreed;
+};
 
 export const getUserTokenBalances = () => {
   const { walletProvider } = useWeb3ModalProvider();

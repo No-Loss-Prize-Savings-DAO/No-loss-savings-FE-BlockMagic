@@ -2,18 +2,24 @@ import Deposit from "@/app/user-dashboard/deposit/page";
 import DepositWithdrawTab from "./DepositWithdrawTab";
 import TransactionCard from "./TransactionCard";
 import OverviewCard from "../dashboards/OverviewCard";
-import { getUserDAOStatus, useGetUserBalance } from "@/hooks/useGetUserBalance";
-import { getSavingsContract } from "@/constants/contracts";
-import { wssProvider } from "@/constants/providers";
+import {
+  getUserDAOStatus,
+  useGetUserBalance,
+  getDAOAgreementResponse,
+  getDAOAgreementStatus,
+} from "@/hooks/useGetUserBalance";
 import JoinDAO from "./JoinDAO";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { useEffect, useState } from "react";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import DAORequestSubmitted from "./DAORequestSubmitted";
 
 export default function asOverview() {
   const userBalance = useGetUserBalance();
   const isDao = getUserDAOStatus();
-  const isRejected = localStorage.getItem("rejected");
+
+  const hasResponded = getDAOAgreementResponse();
+  const hasAgreed = getDAOAgreementStatus();
   const { address } = useWeb3ModalAccount();
   const [withdrawals, setWithdrawals] = useState([]);
   const [deposits, setDeposits] = useState([]);
@@ -49,10 +55,13 @@ export default function asOverview() {
           variables: { address },
         });
         console.log(data);
-       
+
         setDeposits(data?.stableCoinDepositeds);
-        setWithdrawals(data?.stableCoinWithdrawns); 
-        setTransactions([...data?.stableCoinDepositeds, ...data?.stableCoinWithdrawns])
+        setWithdrawals(data?.stableCoinWithdrawns);
+        setTransactions([
+          ...data?.stableCoinDepositeds,
+          ...data?.stableCoinWithdrawns,
+        ]);
       } catch (error) {
         console.log("error fetching data:", error);
       }
@@ -62,11 +71,13 @@ export default function asOverview() {
   }, [address, GET_STABLE_WITHDRAWALS, userBalance]);
   // console.log(transactions);
 
-
   // console.log(userBalance);
   return (
     <div className="mt-16 md:m-16  border-solid border-2 border-grey-500 rounded-2xl">
-      {!isDao && userBalance >=3000 && isRejected !== "true" && <JoinDAO />}
+      {!isDao &&
+        userBalance?.stableCoinBalance >= Number(3000 * 1e6) &&
+        !hasResponded && <JoinDAO />}
+      {hasAgreed && !isDao && <DAORequestSubmitted />}
 
       <div className="flex flex-col lg:flex-row m-4 mt-0 mb-0">
         <OverviewCard
@@ -95,7 +106,9 @@ export default function asOverview() {
         <TransactionCard
           title="Transactions"
           transactions={
-            Array.isArray(transactions) ? transactions.sort((a, b) => a.blockTimestamp - b.blockTimestamp) : []
+            Array.isArray(transactions)
+              ? transactions.sort((a, b) => a.blockTimestamp - b.blockTimestamp)
+              : []
           }
         />
       </div>

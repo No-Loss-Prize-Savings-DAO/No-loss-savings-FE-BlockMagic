@@ -9,24 +9,24 @@ import { toast } from "react-toastify";
 
 
 
-const AcceptDaoMembership = ({closeModal}) => {
+const RejectDaoMembership = ({closeModal}) => {
   const { walletProvider } = useWeb3ModalProvider();
 
   const readWriteProvider = getProvider(walletProvider);
 
-   async function handleAcceptDaoMembership(){
+   async function handleRejctDaoMembership(){
     console.log("Working");
     try {
       const signer = readWriteProvider
         ? await readWriteProvider.getSigner()
         : null;
       const contract = getRegulatoryComplianceContract(signer);
-      const acceptMembership = await contract.acceptAgreement();
-      const tx = await acceptMembership.wait();
+      const rejectMembership = await contract.rejectAgreement();
+      const tx = await rejectMembership.wait();
       console.log("Transaction: ", tx);
       if (tx.status === 1 && onSubmit) {
         closeModal();
-        toast.info("Your request has been accepted and is being processed");
+        toast("You have rejected the DAO membership");
       }
       
 
@@ -39,16 +39,16 @@ const AcceptDaoMembership = ({closeModal}) => {
     <>
       <Button
         type="submit"
-        variant={"outline"}
-        className="bg-[#0267FF] text-white rounded-xl"
+        variant={"destructive"}
+        className="bg-red-600 text-white rounded-xl"
         onClick={()=>{
-            handleAcceptDaoMembership()
+            handleRejctDaoMembership()
         }}
       >
-        Accept
+        Reject
       </Button>
     </>
   );
 };
 
-export default AcceptDaoMembership;
+export default RejectDaoMembership;

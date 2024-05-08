@@ -7,10 +7,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import AcceptDaoMembership from "./AcceptDaoMembership";
+import RejectDaoMembership from "./RejectDaoMembership";
 
-function DAOAgreement({onSubmit}) {
-
-    
+function DAOAgreement({ onSubmit }) {
   const setRejectedState = () => {
     localStorage.setItem("rejected", "true");
     onSubmit();
@@ -58,17 +57,8 @@ function DAOAgreement({onSubmit}) {
       </div>
       <DialogFooter className="absolute bottom-0 p-4 bg-opacity-30 backdrop-blur-lg backdrop-filter w-full flex justify-between">
         <div className=" w-full flex gap-8">
-          <AcceptDaoMembership closeModal={onSubmit}/>
-          {/* <Button type="submit"   variant={"outline"} className="bg-[#0267FF] text-white rounded-xl">Accept</Button> */}
-
-          <Button
-            type="submit"
-            variant={"destructive"}
-            className="bg-red-600 text-white rounded-xl"
-            onClick={setRejectedState}
-          >
-            Reject
-          </Button>
+          <AcceptDaoMembership closeModal={onSubmit} />
+          <RejectDaoMembership closeModal={onSubmit}/>
         </div>
       </DialogFooter>
     </DialogContent>
