@@ -25,7 +25,7 @@ export default function asOverview() {
   const [deposits, setDeposits] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
-  const QueryURL = "https://api.studio.thegraph.com/query/72134/blitz/v0.0.1";
+  const QueryURL = "https://api.studio.thegraph.com/query/72134/blitz/0.0.2";
 
   const GET_STABLE_WITHDRAWALS = gql`
     query GetStableWithdrawals($address: String!) {

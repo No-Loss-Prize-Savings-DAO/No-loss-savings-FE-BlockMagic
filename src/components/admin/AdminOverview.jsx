@@ -16,7 +16,7 @@ export default function AdminOverview() {
 
   const contractBalance = useGetContractBalance();
   const contractAddress = process.env.NEXT_PUBLIC_SAVINGS_CONTRACT;
-  const QueryURL = "https://api.studio.thegraph.com/query/72134/blitz/v0.0.1";
+  const QueryURL = "https://api.studio.thegraph.com/query/72134/blitz/0.0.2";
 
   const GET_STABLE_WITHDRAWALS = gql`
     query GetStableWithdrawals($contractAddress: String!) {

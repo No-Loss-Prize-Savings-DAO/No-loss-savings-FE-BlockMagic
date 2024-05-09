@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { getSavingsContract, getUSDTContract, getBLZContract  } from "@/constants/contracts";
 import { ethers } from "ethers";
 
-const contractAddress = "0x8b886B6d3FB17c56645F073DD41981f607c1B096"; 
+const contractAddress = process.env.NEXT_PUBLIC_SAVINGS_CONTRACT; 
 
 export function useGetContractBalance() {
   const { walletProvider } = useWeb3ModalProvider();
