@@ -11,8 +11,14 @@ const AdminDepositWithdrawTab = () => {
   return (
     <Tabs defaultValue="deposit" className="w-full">
       <div className="flex justify-between mb-4">
-        <span>USDT: {Number(contractUsdtBalance) / 1e6}</span>
-        <span>BLZ: {Number(contractBlzBalance) / 1e18}</span>
+        <span>
+          USDT tokens in the contract: <br />
+          <span className="font-semibold">{Number(contractUsdtBalance) / 1e6}</span>
+        </span>
+        <span>
+          BLZ tokens in the contract: <br />
+          <span className="font-semibold">{Number(contractBlzBalance) / 1e18}</span>
+        </span>
       </div>
       <TabsList className="w-full">
         <TabsTrigger value="deposit">Refund</TabsTrigger>

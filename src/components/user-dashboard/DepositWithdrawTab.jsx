@@ -6,12 +6,18 @@ import { getUserTokenBalances } from "@/hooks/useGetUserBalance";
 
 const DepositWithdrawTab = () => {
   const { userUsdtBalance, userBlzBalance } = getUserTokenBalances();
-  
+
   return (
     <Tabs defaultValue="deposit" className="w-full">
       <div className="flex justify-between mb-4">
-        <span>USDT: {Number(userUsdtBalance )/ 1e6}</span>
-        <span>BLZ: {Number(userBlzBalance)/1e18}</span>
+        <span>
+          USDT tokens you own:
+          <br /> <span className="font-semibold">{Number(userUsdtBalance) / 1e6}</span>
+        </span>
+        <span>
+          BLZ okens you own:
+          <br /> <span className="font-semibold">{Number(userBlzBalance) / 1e18}</span>{" "}
+        </span>
       </div>
       <TabsList className="w-full">
         <TabsTrigger value="deposit">Deposit</TabsTrigger>
