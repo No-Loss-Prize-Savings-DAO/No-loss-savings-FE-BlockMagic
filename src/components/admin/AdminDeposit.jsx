@@ -5,35 +5,52 @@ import { getProvider } from "@/constants/providers";
 import { getSavingsContract, getUSDTContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
+import Loading from "../shared/Loading";
 
 export default function AdminDeposit() {
   const { walletProvider } = useWeb3ModalProvider();
   const [depositAmount, setDepositAmount] = useState(0);
+  const [proposalId, setProposalId] = useState();
+  const [loading, setLoading] = useState(false);
+
 
   const readWriteProvider = getProvider(walletProvider);
   const deposit = async () => {
     try {
+      setLoading(true);
       const signer = readWriteProvider
         ? await readWriteProvider.getSigner()
         : null;
       const usdtcontract = getUSDTContract(signer);
       const contract = getSavingsContract(signer);
 
-      const approve = await usdtcontract.approve(process.env.NEXT_PUBLIC_SAVINGS_CONTRACT, Number(depositAmount * 1000000));
+      const amount = Number(depositAmount * 1e6);
+      const approve = await usdtcontract.approve(
+        process.env.NEXT_PUBLIC_SAVINGS_CONTRACT,
+        amount,
+      );
       const approval = await approve.wait();
 
       console.log(approval);
       if (approval.status === 1) {
-        const transferFrom = await contract.refundWithdrawnAmount(depositAmount);
+        const transferFrom =
+          await contract.refundWithdrawnAmount(proposalId, amount);
         const receipt = await transferFrom.wait();
 
         console.log(receipt);
+        setProposalId(0);
+        setDepositAmount(0);
+        setLoading(false);
       } else {
         console.log("Approval Failed");
       }
     } catch (error) {
-      console.error("Error  handling transfer-from:", error);
+      console.error("Error  handling deposit:", error);
+      setLoading(false);
+      toast.error(`Error handling deposit: ${error}`);
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,20 +59,31 @@ export default function AdminDeposit() {
     { name: "USDT", icon: usdt },
   ];
   return (
-    <div className="mb-0 rounded-xl" id="deposit">
+    <div className="flex flex-col mt-6 gap-6 mb-0 rounded-xl" id="deposit">
       {/* <h3 className="font-bold text-2xl">Deposit</h3>/ */}
 
-      <label className="block p-4 px-0 pb-1 font-semibold">
-        Deposit Token:
-      </label>
-      <div className="border flex justify-between items-center bg-transparent w-full border-slate-700 rounded-2xl py-1 px-2 pl-3 outline-none transition-all duration-300 focus:border-blue-500">
+      <div className="border flex justify-between items-center bg-transparent h-16 w-full border-slate-700 rounded-2xl py-1 px-2 pl-3 outline-none transition-all duration-300 focus:border-blue-500">
+        <input
+          type="number"
+          placeholder="Proposal ID..."
+          className="bg-transparent w-[80%] invisibile h-[full] outline-none"
+          onChange={(e) => {
+            setProposalId(e.target.value);
+          }}
+          // value={proposalId}
+        />
+      </div>
+      <div className="border flex justify-between items-center bg-transparent h-16 w-full border-slate-700 rounded-2xl py-1 px-2 pl-3 outline-none transition-all duration-300 focus:border-blue-500">
         <input
           type="number"
           placeholder="Amount..."
           className="bg-transparent w-[80%] invisibile h-[full] outline-none"
-          onChange={(e)=>{setDepositAmount(e.target.valueAsNumber)}}
+          onChange={(e) => {
+            setDepositAmount(e.target.value);
+          }}
+          // value={depositAmount}
         />{" "}
-          <div className="relative w-10 p-2 cursor-pointer text-left shadow-md focus:outline-none border border-grey-500 rounded-2xl sm:text-sm">
+        <div className="relative w-10 p-2 cursor-pointer text-left shadow-md focus:outline-none border border-grey-500 rounded-2xl sm:text-sm">
           <Image
             src={usdt}
             alt="usdt"
@@ -66,8 +94,7 @@ export default function AdminDeposit() {
         </div>
       </div>
 
-      <p className="p-4 px-0 font-extralight">Total balance: 00000000</p>
-
+      {/* <p className="p-4 px-0 font-extralight">Total balance: 00000000</p> */}
 
       <Button
         variant={"outline"}
@@ -77,9 +104,7 @@ export default function AdminDeposit() {
       >
         Deposit
       </Button>
-      {/* <button className="block m-8 p-8 pt-4 pb-4rounded-3xl shadow-xl ">
-          Deposit
-        </button> */}
+      {loading && <Loading />}
     </div>
   );
 }

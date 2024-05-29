@@ -14,9 +14,9 @@ const HeroSection = () => {
           </h1>
 
           <p className="md:text-xllg:mb-8 mb-6 max-w-2xl text-gray-300 lg:text-2xl">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry&apos;s standard dummy
-            text
+          Blitz is a &quot;No-Loss Prize Savings DAO&quot; that merges
+            traditional savings mechanisms with the innovative features of
+            decentralized finance (DeFi), blockchain technology, and tokenomics.
           </p>
 
           <div className="mb-4 space-y-4 sm:flex sm:space-x-4 sm:space-y-0">

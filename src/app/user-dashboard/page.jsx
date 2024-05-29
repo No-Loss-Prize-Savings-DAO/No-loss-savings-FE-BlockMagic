@@ -43,7 +43,6 @@ const UserDashboard = () => {
             <div>
               {tab == 0 ? <Overview /> : ""}
               {tab == 1 ? <AdminOverview/> : ""}
-              {/* {tab == 2 ? <NFTOverview fullPage={true} /> : ""} */}
             </div>
           </div>
         </div>

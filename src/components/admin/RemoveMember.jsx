@@ -2,31 +2,45 @@ import { Button } from "../../components/ui/button";
 import usdt from "../../../public/images/token-swap/tether.svg";
 import Image from "next/image";
 import { getProvider } from "@/constants/providers";
-import { getDAOContract, getSavingsContract, getUSDTContract } from "@/constants/contracts";
+import {
+  getDAOContract,
+  getSavingsContract,
+  getUSDTContract,
+} from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
+import Loading from "../shared/Loading";
+import { toast } from "react-toastify";
 
 export default function RemoveMember() {
-    const { walletProvider } = useWeb3ModalProvider();
-    const [memberAddress, setMemberAddress] = useState("");
-  
-    const readWriteProvider = getProvider(walletProvider);
-    const handleRemoveMember = async () => {
-      try {
-        const signer = readWriteProvider
-          ? await readWriteProvider.getSigner()
-          : null;
-        const contract = getDAOContract(signer);
-  
-        const removeMember = await contract.removeMember(memberAddress);
-        const receipt = await removeMember.wait();
-  
-        console.log(receipt);
-      } catch (error) {
-        console.error("Error  handling remove member:", error);
-        throw error;
-      }
-    };
+  const { walletProvider } = useWeb3ModalProvider();
+  const [memberAddress, setMemberAddress] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const readWriteProvider = getProvider(walletProvider);
+  const handleRemoveMember = async () => {
+    try {
+      setLoading(true);
+      const signer = readWriteProvider
+        ? await readWriteProvider.getSigner()
+        : null;
+      const contract = getDAOContract(signer);
+
+      const removeMember = await contract.removeMember(memberAddress);
+      const receipt = await removeMember.wait();
+
+      console.log(receipt);
+      setMemberAddress("");
+    } catch (error) {
+      setLoading(false);
+      console.error("Error  handling remove member:", error);
+      toast.error(`Error handling remove member: ${error}`);
+
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="mb-0 border-t" id="deposit">
@@ -40,11 +54,12 @@ export default function RemoveMember() {
           type="number"
           placeholder="Amount..."
           className="bg-transparent w-[80%] invisibile h-[full] outline-none"
-          onChange={(e)=>{setMemberAddress(e.target.value)}}
+          onChange={(e) => {
+            setMemberAddress(e.target.value);
+          }}
+          value={memberAddress}
         />{" "}
-    
       </div>
-
 
       <Button
         variant={"outline"}
@@ -54,7 +69,7 @@ export default function RemoveMember() {
       >
         Remove member
       </Button>
-
+      {loading && <Loading />}
     </div>
   );
 }

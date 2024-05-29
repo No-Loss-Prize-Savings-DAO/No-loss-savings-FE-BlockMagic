@@ -10,7 +10,7 @@ const Explore = () => {
           Get ready to explore the crypto world
         </p>
         <p className="text-lg">
-          Join now with Blitz to get the latest news and start mining now.
+          Join now with Blitz to begin saving and earning in crypto.
         </p>
         <GetStartedBtn/>
       </div>

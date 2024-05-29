@@ -5,14 +5,18 @@ import { getProvider } from "@/constants/providers";
 import { getDAOContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
+import Loading from "@/components/shared/Loading";
+import { toast } from "react-toastify";
 
 export default function AddMember() {
   const { walletProvider } = useWeb3ModalProvider();
   const [memberAddress, setMemberAddress] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const readWriteProvider = getProvider(walletProvider);
   const handleAddMember = async () => {
     try {
+      setLoading(true);
       const signer = readWriteProvider
         ? await readWriteProvider.getSigner()
         : null;
@@ -21,10 +25,15 @@ export default function AddMember() {
       const addMember = await contract.addMember(memberAddress);
       const receipt = await addMember.wait();
 
+      setMemberAddress("");
       console.log(receipt);
     } catch (error) {
       console.error("Error handling add member:", error);
+      toast.error(`Error handling add member: ${error}`);
+
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,6 +52,7 @@ export default function AddMember() {
           onChange={(e) => {
             setMemberAddress(e.target.value);
           }}
+          value={memberAddress}
         />{" "}
  
       </div>
@@ -55,7 +65,7 @@ export default function AddMember() {
       >
         Add member
       </Button>
-
+      {loading && <Loading />}
     </div>
   );
 }

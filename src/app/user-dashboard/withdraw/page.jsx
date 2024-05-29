@@ -1,3 +1,4 @@
+"use client";
 
 import { Button } from "../../../components/ui/button";
 import usdt from "../../../../public/images/token-swap/tether.svg";
@@ -6,30 +7,41 @@ import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
 import { getProvider } from "@/constants/providers";
 import { getSavingsContract, getUSDTContract } from "@/constants/contracts";
+import Loading from "@/components/shared/Loading";
+import { toast } from "react-toastify";
 
 export default function Withdraw() {
   const { walletProvider } = useWeb3ModalProvider();
   const [withdrawAmount, setWithdrawAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const readWriteProvider = getProvider(walletProvider);
   const withdraw = async () => {
+    setLoading(true)
+    const signer = readWriteProvider
+    ? await readWriteProvider.getSigner()
+    : null;
+  const contract = getSavingsContract(signer);
     try {
-      const signer = readWriteProvider
-        ? await readWriteProvider.getSigner()
-        : null;
-      const usdtcontract = getUSDTContract(signer);
-      const contract = getSavingsContract(signer);
-
-      const withdraw = await contract.withdraw(withdrawAmount);
+      const amount = Number(withdrawAmount * 1e6);
+      const withdraw = await contract.withdraw(amount);
       const receipt = await withdraw.wait();
 
       console.log(receipt);
+      setWithdrawAmount(0);
+      setLoading(false);
     } catch (error) {
-      console.error("Error  handling withdrawal:", error);
+      const decodedError = contract.interface.parseError(error.data);
+      console.error("Error  handling withdrawal:", decodedError?.name);
+      setLoading(false);
+      toast.error(`${decodedError.args}`);
       throw error;
+    } finally{
+      setLoading(false);
     }
   };
   return (
+    <>
     <div className="mb-0 rounded-xl" id="deposit">
       {/* <h3 className="font-bold text-2xl">Deposit</h3>/ */}
 
@@ -42,8 +54,9 @@ export default function Withdraw() {
           placeholder="Amount..."
           className="bg-transparent h-[full] outline-none"
           onChange={(e) => {
-            setWithdrawAmount(e.target.valueAsNumber);
+            setWithdrawAmount(e.target.value);
           }}
+          value={withdrawAmount}
         />{" "}
         <div className="relative w-10 p-2 cursor-pointer text-left shadow-md focus:outline-none border border-grey-500 rounded-2xl sm:text-sm">
           <Image
@@ -56,7 +69,7 @@ export default function Withdraw() {
         </div>
       </div>
 
-      <p className="p-4 px-0 font-extralight">Total balance: 00000000</p>
+      {/* <p className="p-4 px-0 font-extralight">Total balance: 00000000</p> */}
 
       <Button
         variant={"outline"}
@@ -66,9 +79,8 @@ export default function Withdraw() {
       >
         Withdraw
       </Button>
-      {/* <button className="block m-8 p-8 pt-4 pb-4rounded-3xl shadow-xl ">
-          Deposit
-        </button> */}
+      {loading && <Loading/>}
     </div>
+    </>
   );
 }
