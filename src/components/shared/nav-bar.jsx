@@ -6,6 +6,8 @@ import Link from "next/link";
 import ConnectButton from "@/hooks/useConnectButton";
 import { NavMobile } from "./nav-mobile";
 import { UserCircle2 } from "lucide-react";
+import Image from "next/image";
+import logo from "../../../public/images/logo.png";
 
 export const gluten = Gluten({ subsets: ["latin"] });
 
@@ -15,12 +17,21 @@ export const NavBar = () => {
       <div className="fixed top-0 z-50 w-full   bg-opacity-30 backdrop-blur-lg backdrop-filter">
         <div className="mx-auto w-full px-4 sm:w-11/12 md:w-10/12">
           <div className="flex h-20 items-center justify-between">
-            <Link
+            <div className="flex items-center">
+            <Image
+src={logo}
+className="w-[70px]"
+alt="Blitz logo"
+/>
+<Link
               href="/"
               className={`text-3xl font-semibold text-gray-100 lg:text-5xl`}
             >
+
               Blitz
             </Link>
+            </div>
+            
             <div className="flex items-center gap-12">
               <div className=" hidden lg:flex items-center gap-12">
                 <Link href="/dao" className=" font-medium text-lg">
