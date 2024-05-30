@@ -45,17 +45,9 @@ if (status === true) {
     durationText = "Ending today";
   }
 } else if (status === false) {
-  const endDateObj = new Date(Number(BigInt(endDate) * 1000n)); // Convert seconds to milliseconds
-  const currentDate = new Date();
-  const timeDiff = currentDate.getTime() - endDateObj.getTime();
-  const daysDiff = Math.floor(Number(timeDiff) / (1000 * 3600 * 24));
-  const monthsDiff = Math.floor(daysDiff / 30);
 
-  if (monthsDiff === 0) {
-    durationText = `Ended ${daysDiff} day${daysDiff === 1 ? "" : "s"} ago`;
-  } else {
-    durationText = `Ended ${monthsDiff} month${monthsDiff === 1 ? "" : "s"} ago`;
-  }
+    durationText = `Proposal Ended`;
+  
 }
 
 

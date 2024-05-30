@@ -8,6 +8,8 @@ import { VoteResult } from "../../../../components/dao/vote-result";
 import { ListOfVoters } from "../../../../components/dao/voters";
 import { VoteCast } from "../../../../components/dao/vote-cast";
 
+import { ArrowLeft } from 'lucide-react';
+
 import { getDAOContract } from "@/constants/contracts";
 import { getProvider } from "@/constants/providers";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
@@ -66,7 +68,11 @@ export default function ProposalDetailPage({params}) {
 <main className="max-w-5xl mx-auto py-20">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-  <button className="mb-2 cursor-pointer" onClick={() => window.history.back()} >Return back</button>
+<div className="flex" onClick={() => window.history.back()}>
+<ArrowLeft />
+  <button className="mb-2 cursor-pointer"> Return back</button>
+
+</div>
 
   {loading ? (
             <Loading /> // Display loader while loading
@@ -99,15 +105,18 @@ export default function ProposalDetailPage({params}) {
           creator={proposal && proposal.proposer}
           votingSystem="Basic voting"
           duration={proposal && proposal.endTime}
+          proposalStatus={proposal && proposal.active}
+          totalVotes={proposal && proposal.totalVotes}
           // startDate="2024-02-29T08:54:00Z"
           // endDate={proposal && proposal.endTime}
           // snapshot="19,331,807"
         />
 
-        {/* <VoteResult
-          yesVotes={200}
-          noVotes={20}
-        /> */}
+        <VoteResult
+          totalVotes={proposal && proposal.totalVotes}
+          requiredVotes={proposal && proposal.requiredVotes}
+          proposalStatus={proposal && proposal.active}
+        />
       </div>
     </div>
 )}
@@ -115,7 +124,7 @@ export default function ProposalDetailPage({params}) {
  <VoteCast proposalId={id} />
 
     {/* Render the ListOfVoters component and pass the voters array as prop */}
-    {/* <ListOfVoters voters={voters} /> */}
+    <ListOfVoters voters={voters} />
 
   </div>
 </main>

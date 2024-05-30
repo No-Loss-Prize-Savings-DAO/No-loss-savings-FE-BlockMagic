@@ -44,14 +44,4 @@ export default function ListOfVoters({ voters }) {
   );
 }
 
-function truncateText(text, maxLength) {
-    if (text.length <= maxLength) {
-      return text;
-    }
-    const start = text.substr(0, 3);
-    const middle = "*****"; // You can customize this based on your needs
-    const end = text.substr(-3);
-    return `${start}${middle}${end}`;
-  }
-
 export { ListOfVoters };
