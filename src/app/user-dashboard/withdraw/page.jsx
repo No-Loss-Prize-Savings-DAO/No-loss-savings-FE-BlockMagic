@@ -8,6 +8,7 @@ import { useState } from "react";
 import { getProvider } from "@/constants/providers";
 import { getSavingsContract, getUSDTContract } from "@/constants/contracts";
 import Loading from "@/components/shared/Loading";
+import { toast } from "react-toastify";
 
 export default function Withdraw() {
   const { walletProvider } = useWeb3ModalProvider();
@@ -17,14 +18,11 @@ export default function Withdraw() {
   const readWriteProvider = getProvider(walletProvider);
   const withdraw = async () => {
     setLoading(true)
+    const signer = readWriteProvider
+    ? await readWriteProvider.getSigner()
+    : null;
+  const contract = getSavingsContract(signer);
     try {
-      setLoading(true);
-      const signer = readWriteProvider
-        ? await readWriteProvider.getSigner()
-        : null;
-      const usdtcontract = getUSDTContract(signer);
-      const contract = getSavingsContract(signer);
-
       const amount = Number(withdrawAmount * 1e6);
       const withdraw = await contract.withdraw(amount);
       const receipt = await withdraw.wait();
@@ -33,14 +31,17 @@ export default function Withdraw() {
       setWithdrawAmount(0);
       setLoading(false);
     } catch (error) {
-      console.error("Error  handling withdrawal:", error);
+      const decodedError = contract.interface.parseError(error.data);
+      console.error("Error  handling withdrawal:", decodedError?.name);
       setLoading(false);
+      toast.error(`${decodedError.args}`);
       throw error;
     } finally{
       setLoading(false);
     }
   };
   return (
+    <>
     <div className="mb-0 rounded-xl" id="deposit">
       {/* <h3 className="font-bold text-2xl">Deposit</h3>/ */}
 
@@ -80,5 +81,6 @@ export default function Withdraw() {
       </Button>
       {loading && <Loading/>}
     </div>
+    </>
   );
 }

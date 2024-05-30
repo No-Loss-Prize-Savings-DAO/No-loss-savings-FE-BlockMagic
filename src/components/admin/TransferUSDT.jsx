@@ -6,6 +6,7 @@ import { getUSDTContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
 import Loading from "../shared/Loading";
+import { toast } from "react-toastify";
 
 export default function TransferUSDT() {
   const { walletProvider } = useWeb3ModalProvider();
@@ -31,6 +32,9 @@ export default function TransferUSDT() {
       setTransferAmount();
     } catch (error) {
       console.error("Error handling add member:", error);
+      setLoading(false);
+      toast.error(`Error handling transfer USDT: ${error}`);
+
       throw error;
     } finally {
       setLoading(false);

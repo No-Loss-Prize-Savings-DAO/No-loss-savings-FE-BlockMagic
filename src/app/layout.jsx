@@ -2,6 +2,9 @@ import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Web3Modal } from "@/connection";
 import { Toaster } from "react-hot-toast";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+
 
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({
@@ -20,7 +23,7 @@ export default function RootLayout({ children }) {
       <Web3Modal>
         <body>
           {children}
-          <Toaster />
+          <ToastContainer theme="dark"/>
         </body>
       </Web3Modal>
     </html>

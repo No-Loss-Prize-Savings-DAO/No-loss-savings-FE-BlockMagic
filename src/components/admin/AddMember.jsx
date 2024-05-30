@@ -6,6 +6,7 @@ import { getDAOContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
 import Loading from "@/components/shared/Loading";
+import { toast } from "react-toastify";
 
 export default function AddMember() {
   const { walletProvider } = useWeb3ModalProvider();
@@ -28,6 +29,8 @@ export default function AddMember() {
       console.log(receipt);
     } catch (error) {
       console.error("Error handling add member:", error);
+      toast.error(`Error handling add member: ${error}`);
+
       throw error;
     } finally {
       setLoading(false);

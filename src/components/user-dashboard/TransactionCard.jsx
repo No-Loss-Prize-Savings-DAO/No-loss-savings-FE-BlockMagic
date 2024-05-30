@@ -8,7 +8,7 @@ const TransactionCard = ({ title, transactions }) => {
     return date.toLocaleString(); // Adjust the format as needed
   };
   return (
-    <div className="p-8 pt-6 pb-6 m-8 md:w-2/5 border-solid border-2 border-grey-500 rounded-2xl">
+    <div className="p-4 pt-6 pb-6 m-8 md:w-2/5 border-solid border-2 border-grey-500 rounded-2xl transctions">
       <h3 className="font-bold text-2xl">{title}</h3>
       <p className="text-sm font-medium">
         You made {transactions.length} transactions this month.
@@ -16,7 +16,7 @@ const TransactionCard = ({ title, transactions }) => {
       <div className="max-h-[300px] overflow-auto">
         {transactions?.map((transaction, index) => (
           <div
-            className="flex justify-between items-center p-4 px-0"
+            className="flex justify-between items-center p-4 px-4"
             key={index}
           >
             <div>
@@ -28,7 +28,7 @@ const TransactionCard = ({ title, transactions }) => {
               <p className="text-xs">{convertBlockTimestampToDate(transaction.blockTimestamp)}</p>
             </div>
             <div>
-              <p className="font-bold">{transaction.amount}</p>
+              <p className="font-bold">{Number(transaction.amount / 1e6)}</p>
             </div>
           </div>
         ))}

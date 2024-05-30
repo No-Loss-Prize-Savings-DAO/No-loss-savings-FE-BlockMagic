@@ -65,7 +65,7 @@ function JoinDAO() {
         <DAOAgreement onSubmit={closeModal}/>
       </Dialog>
 
-      <X className="text-red-700 w-5 pointer" onClick={hideComponent}/>
+      <X className="text-red-700 w-5 cursor-pointer" onClick={hideComponent}/>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { getPrizeDistributionContract } from "@/constants/contracts";
 import { useWeb3ModalProvider } from "@web3modal/ethers/react";
 import { useState } from "react";
 import Loading from "../shared/Loading";
+import { toast } from "react-toastify";
 
 export default function DistributeProfit() {
   const { walletProvider } = useWeb3ModalProvider();
@@ -28,7 +29,9 @@ export default function DistributeProfit() {
       setProfitAmount(0);
       console.log(receipt);
     } catch (error) {
-      console.error("Error handling add member:", error);
+      console.error("Error handling prize distribution:", error);
+      setLoading(false);
+      toast.error(`Error handling prize distribution: ${error}`);
       throw error;
     } finally {
       setLoading(false);
@@ -37,7 +40,9 @@ export default function DistributeProfit() {
 
   return (
     <div className="mb-0 rounded-xl" id="handleDistributeProfit">
-      <h3 className="font-bold text-xl">Distribute Profit to Users and DAOs</h3>
+      <h3 className="font-bold text-xl">
+        Distribute Profit to Users and DAO members
+      </h3>
 
       <div className="flex flex-col gap-4 pt-4">
         <div className="border flex justify-between items-center bg-transparent w-full border-slate-700 rounded-2xl py-3 px-2 pl-3 outline-none transition-all duration-300 focus:border-blue-500">

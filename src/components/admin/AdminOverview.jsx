@@ -16,7 +16,7 @@ export default function AdminOverview() {
 
   const contractBalance = useGetContractBalance();
   const contractAddress = process.env.NEXT_PUBLIC_SAVINGS_CONTRACT;
-  const QueryURL = "https://api.studio.thegraph.com/query/72134/blitz/v0.0.1";
+  const QueryURL = "https://api.studio.thegraph.com/query/72134/blitz/0.0.2";
 
   const GET_STABLE_WITHDRAWALS = gql`
     query GetStableWithdrawals($contractAddress: String!) {
@@ -84,20 +84,10 @@ export default function AdminOverview() {
                 <AdminDepositWithdrawTab />
               </div>
               <div className="p-8 pt-6 pb-6 m-8 md:w-2/5 border-solid border-2 border-grey-500 rounded-2xl">
-                <div className="flex flex-col gap-8">
-                  {/* {transactions.map((transaction, index) => ( */}
-                  <AddMember />
-                  <RemoveMember />
-                  {/* ))} */}
+                <div className="flex flex-col gap-12">
+                   <TransferUSDT />
+                 <DistributeProfit />              
                 </div>
-              </div>
-            </div>
-            <div className="flex flex-col md:flex-row m-2 mt-0 mb-0">
-              <div className="p-8 pt-6 pb-6 m-8  md:w-3/5 border-solid border-2 border-grey-500 rounded-2xl">
-                <TransferUSDT />
-              </div>
-              <div className="p-8 pt-6 pb-6 m-8  md:w-3/5 border-solid border-2 border-grey-500 rounded-2xl">
-                <DistributeProfit />
               </div>
             </div>
           </div>

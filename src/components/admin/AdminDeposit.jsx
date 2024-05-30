@@ -45,7 +45,9 @@ export default function AdminDeposit() {
         console.log("Approval Failed");
       }
     } catch (error) {
-      console.error("Error handling transfer-from:", error);
+      console.error("Error  handling deposit:", error);
+      setLoading(false);
+      toast.error(`Error handling deposit: ${error}`);
       throw error;
     } finally {
       setLoading(false);
