@@ -55,7 +55,7 @@ export default function AdminOverview() {
   return (
     <>
       {address === creatorAddress ? (
-        <div className="mt-16 md:m-16  border-solid border-2 border-grey-500 rounded-2xl">
+        <div className="mt-16 md:m-16">
           <div className="flex flex-col lg:flex-row m-4 mt-0 mb-0">
             <OverviewCard
               title="USDT Balance"
