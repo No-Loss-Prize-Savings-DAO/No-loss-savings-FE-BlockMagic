@@ -73,7 +73,7 @@ export default function asOverview() {
 
   // console.log(userBalance);
   return (
-    <div className="mt-16 md:m-16  border-solid border-2 border-grey-500 rounded-2xl">
+    <div className="mt-16 md:m-16">
       {!isDao &&
         userBalance?.stableCoinBalance >= Number(3000 * 1e6) &&
         !hasResponded && <JoinDAO />}

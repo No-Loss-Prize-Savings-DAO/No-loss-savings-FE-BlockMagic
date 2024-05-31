@@ -21,17 +21,25 @@ export default function DistributeProfit() {
         ? await readWriteProvider.getSigner()
         : null;
       const contract = getPrizeDistributionContract(signer);
+      // const amount = Number(profitAmount * 1e18);
+      //  contract.requestRandomWords();
+      const randomWords = await contract.requestRandomWords();
 
-      const amount = Number(profitAmount * 1e18);
-      const distributeProfit = await contract.transfer(amount);
-      const receipt = await distributeProfit.wait();
+      const randomWordsReceipt = await randomWords.wait()
 
-      setProfitAmount(0);
-      console.log(receipt);
+      // if (randomWordsReceipt.status === 1) {
+      //   const distributeProfit = await contract.distributeProfit(amount);
+      //   const receipt = await distributeProfit.wait();
+      //   setProfitAmount(0);
+      //   console.log(receipt);
+      // }
+
+      // setProfitAmount(0);
+      console.log(randomWordsReceipt);
     } catch (error) {
-      console.error("Error handling prize distribution:", error);
+      console.error("Error handling prize distribution:", error.message);
       setLoading(false);
-      toast.error(`Error handling prize distribution: ${error}`);
+      toast.error(`Error handling prize distribution`);
       throw error;
     } finally {
       setLoading(false);

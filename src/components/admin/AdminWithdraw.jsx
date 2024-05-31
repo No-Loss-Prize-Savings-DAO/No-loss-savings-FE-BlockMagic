@@ -36,7 +36,7 @@ export default function AdminWithdraw() {
     } catch (error) {
       console.error("Error  handling withdrawal:", error);
       setLoading(false);
-      toast.error(`Error handling withdrawal: ${error}`);
+      toast.error(`Error handling withdrawal`);
       throw error;
     } finally {
       setLoading(false);
