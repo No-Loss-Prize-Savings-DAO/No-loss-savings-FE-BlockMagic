@@ -1,6 +1,9 @@
-import { getSavingsContract } from "@/constants/contracts";
-import { getProvider } from "@/constants/providers";
-import { useWeb3ModalProvider } from "@web3modal/ethers/react";
+import { getNFTContract, getSavingsContract } from "@/constants/contracts";
+import { getProvider, readOnlyProvider } from "@/constants/providers";
+import {
+  useWeb3ModalAccount,
+  useWeb3ModalProvider,
+} from "@web3modal/ethers/react";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -16,6 +19,7 @@ import { Button } from "./ui/button";
 function ForfeitMembership() {
   const { walletProvider } = useWeb3ModalProvider();
   const [loading, setLoading] = useState(false);
+  const { address } = useWeb3ModalAccount();
 
   const readWriteProvider = getProvider(walletProvider);
   const forfeit = async () => {
@@ -23,9 +27,17 @@ function ForfeitMembership() {
       ? await readWriteProvider.getSigner()
       : null;
 
+    const nftContract = getNFTContract(readOnlyProvider);
+
     try {
+      const balance = await nftContract.balanceOf(address);
+      let tokenIds = [];
+      for (let i = 0; i < balance; i++) {
+        const tokenId = await nftContract.tokenOfOwnerByIndex(address, i);
+        tokenIds.push(tokenId);
+      }
       const contract = getSavingsContract(signer);
-      const forfeitReceipt = await contract.proposalCount();
+      const forfeitReceipt = await contract.forfeitDAO(tokenIds[0]);
       console.log(forfeitReceipt);
     } catch (error) {
       console.log(error);
