@@ -7,8 +7,10 @@ import ForfeitMembership from "../dao/forfeit-membership";
 import { getUserDAOStatus } from "@/hooks/useGetUserBalance";
 
 const UserDetails = () => {
-  const [isPopoverOpen, setIsPopoverOpen] = useState(true);
-  const userDaoStatus = getUserDAOStatus()
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const userDaoStatus = getUserDAOStatus();
+
+  
 
   return (
     <div
