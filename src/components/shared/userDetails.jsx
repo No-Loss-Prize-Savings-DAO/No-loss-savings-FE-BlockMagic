@@ -57,7 +57,7 @@ const UserDetails = () => {
             <p className="mb-4 text-sm text-center">
               View on{" "}
               <a
-                href="#"
+                href="https://testnets.opensea.io/collection/dao-membership-nft-5"
                 className="text-blue-600 dark:text-blue-500 hover:underline"
               >
                 opensea
