@@ -5,6 +5,7 @@ import daoAbi from "./daoAbi.json";
 import prizeDistribution from "./prizeDistributionAbi.json";
 import regulatoryComplianceAbi from "./RegulatoryComplianceAbi.json";
 import blzAbi from "./blzAbi.json";
+import nftAbi from "./nftAbi.json";
 
 
 export const getSavingsContract = (providerOrSigner) =>
@@ -46,5 +47,12 @@ export const getUSDTContract = (providerOrSigner) =>
       new ethers.Contract(
         process.env.NEXT_PUBLIC_BLZ_CONTRACT,
         blzAbi,
+        providerOrSigner
+      );
+
+    export const getNFTContract = (providerOrSigner) =>
+      new ethers.Contract(
+        process.env.NEXT_PUBLIC_NFT_CONTRACT,
+        nftAbi,
         providerOrSigner
       );

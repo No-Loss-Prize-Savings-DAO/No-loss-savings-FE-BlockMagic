@@ -1,5 +1,5 @@
 
-export default function VoteInfo({ creator, votingSystem, duration, startDate, endDate, snapshot }) {
+export default function VoteInfo({ creator, votingSystem, duration, startDate, endDate, snapshot, proposalStatus, totalVoters }) {
 
   const truncatedCreator =
   creator && creator.length > 10
@@ -8,17 +8,19 @@ export default function VoteInfo({ creator, votingSystem, duration, startDate, e
 
     // Calculate duration based on the end date and status
     let durationText = "";
-    if (duration !== null) {
+    if (duration !== null && proposalStatus === true) {
       const endDateObj = new Date(Number(BigInt(duration) * 1000n)); // Convert seconds to milliseconds
       const currentDate = new Date();
       const timeDiff = endDateObj.getTime() - currentDate.getTime();
       const daysDiff = Math.ceil(Number(timeDiff) / (1000 * 3600 * 24));
     
-      if (daysDiff > 0) {
+      if (daysDiff > 0 && proposalStatus === true) {
         durationText = `Ends in ${daysDiff} day${daysDiff === 1 ? "" : "s"}`;
       } else {
         durationText = "Ending today";
       }
+    } else if (proposalStatus === false) {
+      durationText = "Proposal Ended"
     } else {
       durationText = "Duration not available";
     }
@@ -35,6 +37,8 @@ export default function VoteInfo({ creator, votingSystem, duration, startDate, e
         <p className="font-bold text-sm text-right">{votingSystem}</p>
         <p className="font-bold text-sm mb-2 text-[#8b949e]">Duration:</p>
         <p className="font-bold text-sm text-right">{durationText}</p>
+        <p className="font-bold text-sm mb-2 text-[#8b949e]">Total Votes:</p>
+        <p className="font-bold text-sm text-right">{totalVoters}</p>
         {/* <p className="font-bold text-sm mb-2 text-[#8b949e]">Start date:</p>
         <p className="font-bold text-sm text-right">{startDate}</p>
         <p className="font-bold text-sm mb-2 text-[#8b949e]">End date:</p>

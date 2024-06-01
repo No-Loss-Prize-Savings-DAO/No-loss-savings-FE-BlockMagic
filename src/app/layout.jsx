@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({
-  // weight: "500",
+  weight: "500",
   subsets: ["latin"],
 });
 

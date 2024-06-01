@@ -3,47 +3,30 @@
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers/react";
 
 export const creatorAddress = "0xDdb342ecc94236c29a5307d3757d0724D759453C"
-export const OPTIMISM_SEPOLIA_ID = 11155420;
-export const SEPOLIA_ID = 11155111;
+export const SUPPORTED_CHAIN = 4202;
 
-export const OPTIMISM_ID = 10;
+export const SEPOLIA_ID = 4202;
 
-const OP_mainnet = {
-  chainId: OPTIMISM_ID,
-  name: "Optimism",
-  currency: "ETH",
-  explorerUrl: "https://explorer.optimism.io",
-  rpcUrl: process.env.NEXT_PUBLIC_MAINNET_RPC_URL,
-};
 
-const OP_sepolia = {
-  chainId: OPTIMISM_SEPOLIA_ID,
-  name: "Optimism Sepolia",
-  currency: "ETH",
-  explorerUrl: "https://sepolia-optimistic.etherscan.io",
-  rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_OP_RPC_URL
-};
 
-const Sepolia = {
+const LiskSepolia = {
   chainId: SEPOLIA_ID,
-  name: "Sepolia",
+  name: "Lisk sepolia",
   currency: "ETH",
-  explorerUrl: "https://sepolia.etherscan.io/",
-  rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL
+  explorerUrl: "https://sepolia-blockscout.lisk.com",
+  rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL,
 };
-
-
 
 const metadata = {
-  name: "Badger for Shardeum",
-  description: "No code token creation",
+  name: "Blitz",
+  description: "No loss savings",
   url: "https://mywebsite.com",
   icons: ["https://avatars.mywebsite.com/"],
 };
 
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
-  chains: [OP_mainnet, OP_sepolia, Sepolia],
+  chains: [LiskSepolia],
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   enableAnalytics: false, // Optional - defaults
   themeVariables: {
