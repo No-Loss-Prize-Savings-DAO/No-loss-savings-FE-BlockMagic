@@ -5,18 +5,25 @@ import Image from "next/image";
 import React, { useState } from "react";
 import ForfeitMembership from "../dao/forfeit-membership";
 import { useGetUserDAOStatus } from "@/hooks/useGetUserBalance";
+import { useRouter } from "next/navigation";
 
 const UserDetails = () => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const userDaoStatus = useGetUserDAOStatus();
+  const navigate = useRouter();
 
-  
+  function handleRouteToUser() {
+    if (!userDaoStatus) {
+      navigate.push("/user-dashboard", { scroll: false });
+    }
+  }
 
   return (
     <div
       className="relative"
       onMouseEnter={() => setIsPopoverOpen(true)}
       onMouseLeave={() => setIsPopoverOpen(false)}
+      onClick={() => handleRouteToUser()}
     >
       <span>
         <UserCircle2
@@ -52,21 +59,13 @@ const UserDetails = () => {
                 width={100}
                 height={100}
                 priority
+                alt=""
               />
             </div>
-            <p className="mb-4 text-sm text-center">
-              View on{" "}
-              <a
-                href="https://testnets.opensea.io/collection/dao-membership-nft-5"
-                className="text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                opensea
-              </a>
-              .
-            </p>
-       <div className="flex flex-col items-center">
-       <ForfeitMembership/>
-       </div>
+
+            <div className="flex flex-col items-center">
+              <ForfeitMembership />
+            </div>
           </div>
           <div data-popper-arrow></div>
         </div>
