@@ -2,10 +2,10 @@ import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Deposit from "@/app/user-dashboard/deposit/page";
 import Withdraw from "@/app/user-dashboard/withdraw/page";
-import { getUserTokenBalances } from "@/hooks/useGetUserBalance";
+import { useGetUserTokenBalances } from "@/hooks/useGetUserBalance";
 
 const DepositWithdrawTab = () => {
-  const { userUsdtBalance, userBlzBalance } = getUserTokenBalances();
+  const { userUsdtBalance, userBlzBalance } = useGetUserTokenBalances();
 
   return (
     <Tabs defaultValue="deposit" className="w-full">

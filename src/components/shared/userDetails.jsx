@@ -4,11 +4,11 @@ import { UserCircle2 } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import ForfeitMembership from "../dao/forfeit-membership";
-import { getUserDAOStatus } from "@/hooks/useGetUserBalance";
+import { useGetUserDAOStatus } from "@/hooks/useGetUserBalance";
 
 const UserDetails = () => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const userDaoStatus = getUserDAOStatus();
+  const userDaoStatus = useGetUserDAOStatus();
 
   
 

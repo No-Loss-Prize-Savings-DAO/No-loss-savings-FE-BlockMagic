@@ -3,10 +3,10 @@ import DepositWithdrawTab from "./DepositWithdrawTab";
 import TransactionCard from "./TransactionCard";
 import OverviewCard from "../dashboards/OverviewCard";
 import {
-  getUserDAOStatus,
+  useGetUserDAOStatus,
   useGetUserBalance,
-  getDAOAgreementResponse,
-  getDAOAgreementStatus,
+  useGetDAOAgreementResponse,
+  useGetDAOAgreementStatus,
 } from "@/hooks/useGetUserBalance";
 import JoinDAO from "./JoinDAO";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
@@ -14,12 +14,12 @@ import { useEffect, useState } from "react";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import DAORequestSubmitted from "./DAORequestSubmitted";
 
-export default function asOverview() {
+export default function Overview() {
   const userBalance = useGetUserBalance();
-  const isDao = getUserDAOStatus();
+  const isDao = useGetUserDAOStatus();
 
-  const hasResponded = getDAOAgreementResponse();
-  const hasAgreed = getDAOAgreementStatus();
+  const hasResponded = useGetDAOAgreementResponse();
+  const hasAgreed = useGetDAOAgreementStatus();
   const { address } = useWeb3ModalAccount();
   const [withdrawals, setWithdrawals] = useState([]);
   const [deposits, setDeposits] = useState([]);

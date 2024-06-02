@@ -81,7 +81,7 @@ export function useGetContractBalance() {
   return contractBalance;
 }
 
-export const getContractTokenBalances = () => {
+export const useGetContractTokenBalances = () => {
   const { walletProvider } = useWeb3ModalProvider();
   const { address } = useWeb3ModalAccount();
   const [contractUsdtBalance, setContractUsdtBalance] = useState(0);

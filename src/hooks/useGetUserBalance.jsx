@@ -84,7 +84,7 @@ export function useGetUserBalance() {
   return userBalance;
 }
 
-export const getUserDAOStatus = () => {
+export const useGetUserDAOStatus = () => {
   const { walletProvider } = useWeb3ModalProvider();
   const { address } = useWeb3ModalAccount();
   const [userDaoStatus, setUserDaoStatus] = useState();
@@ -107,7 +107,7 @@ export const getUserDAOStatus = () => {
   return userDaoStatus;
 };
 
-export const getDAOAgreementResponse = () => {
+export const useGetDAOAgreementResponse = () => {
   const { walletProvider } = useWeb3ModalProvider();
   const { address } = useWeb3ModalAccount();
   const [hasResponded, setHasResponded] = useState();
@@ -130,7 +130,7 @@ export const getDAOAgreementResponse = () => {
   return hasResponded;
 };
 
-export const getDAOAgreementStatus = () => {
+export const useGetDAOAgreementStatus = () => {
   const { walletProvider } = useWeb3ModalProvider();
   const { address } = useWeb3ModalAccount();
   const [hasAgreed, setHasAgreed] = useState();
@@ -153,7 +153,7 @@ export const getDAOAgreementStatus = () => {
   return hasAgreed;
 };
 
-export const getUserTokenBalances = () => {
+export const useGetUserTokenBalances = () => {
   const { walletProvider } = useWeb3ModalProvider();
   const { address } = useWeb3ModalAccount();
   const [userUsdtBalance, setUserUsdtBalance] = useState(0);

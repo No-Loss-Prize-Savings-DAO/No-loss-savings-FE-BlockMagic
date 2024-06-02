@@ -2,11 +2,11 @@ import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminWithdraw from "./AdminWithdraw";
 import AdminDeposit from "./AdminDeposit";
-import { getContractTokenBalances } from "@/hooks/useGetContractBalance";
+import { useGetContractTokenBalances } from "@/hooks/useGetContractBalance";
 
 const AdminDepositWithdrawTab = () => {
   const { contractUsdtBalance, contractBlzBalance } =
-    getContractTokenBalances();
+  useGetContractTokenBalances();
 
   return (
     <Tabs defaultValue="deposit" className="w-full">
