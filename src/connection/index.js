@@ -3,18 +3,16 @@
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers/react";
 
 export const creatorAddress = "0xDdb342ecc94236c29a5307d3757d0724D759453C"
-export const SUPPORTED_CHAIN = 4202;
+export const SUPPORTED_CHAIN = 80002;
 
-export const SEPOLIA_ID = 4202;
+export const AMOY_ID = 80002;
 
-
-
-const LiskSepolia = {
-  chainId: SEPOLIA_ID,
-  name: "Lisk sepolia",
-  currency: "ETH",
-  explorerUrl: "https://sepolia-blockscout.lisk.com",
-  rpcUrl: process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL,
+const Amoy = {
+  chainId: AMOY_ID,
+  name: "Polygon Amoy",
+  currency: "MATIC",
+  explorerUrl: "https://www.oklink.com/amoy",
+  rpcUrl: process.env.NEXT_PUBLIC_AMOY_RPC_URL,
 };
 
 const metadata = {
@@ -26,7 +24,7 @@ const metadata = {
 
 createWeb3Modal({
   ethersConfig: defaultConfig({ metadata }),
-  chains: [LiskSepolia],
+  chains: [Amoy],
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
   enableAnalytics: false, // Optional - defaults
   themeVariables: {
